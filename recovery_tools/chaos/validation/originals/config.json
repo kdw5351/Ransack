@@ -1,0 +1,5 @@
+{
+  "fixture": "chaos",
+  "scheme": "AES-256-CBC, per-file captured KEY|IV",
+  "synthetic": true
+}

@@ -1,0 +1,17 @@
+{
+  "loop_id": 10,
+  "thread_id": 4324,
+  "pin_thread_id": 699,
+  "iteration_at_capture": 3,
+  "header": "b5af13",
+  "backedge": "b5af25",
+  "loop_end": "b5af27",
+  "range_size": 20,
+  "snapshot_written": true,
+  "snapshot_file": "loop_10.bin",
+  "snapshot_bytes": 20,
+  "image_path": "C:\\Users\\user\\Desktop\\hdlocker.exe",
+  "function_name": "?",
+  "control_transfer_refs": [
+  ]
+}

@@ -1,0 +1,1 @@
+Makop reproduction fixture. Benign synthetic plaintext reconstructed from the encrypt-sink residue, no real victim data.

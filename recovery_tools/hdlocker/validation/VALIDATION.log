@@ -1,0 +1,182 @@
+====================================================================
+hdlocker decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 74/74 byte-exact (Table III)
+staged 74 *_HD files
+======================================================================
+HDLocker Universal Recovery Tool
+======================================================================
+  Ransom note HD_*.log (optional, Enter to skip): [*] keyspace: 73,728 bytes  (73,713 TEA_KEY candidates)
+[*] found 74 _HD file(s) in hdflat_ke0axgij
+
+[*] Brute-forcing TEA_KEY using rec_4.yaml_HD (large-format, cipher region 50016 B)...
+[*] Brute-force took 2.6s.  Top 3 candidates:
+    score=1015  offset=0x  810  key=b1c2bacac2b3bbbfc2c9c0b1dab8d3d9
+    score= 16  offset=0x 25a7  key=bcd0c0d3babfd9d8c4c2c9c9cfb1d8c0
+    score= 13  offset=0x 5c49  key=c9c3d5c9b7b6b7d3bcb5c1d8b2d9bed5
+
+[+] Selected TEA_KEY = b1c2bacac2b3bbbfc2c9c0b1dab8d3d9  (score=1015, offset=0x810)
+[+] Prefix length: 9 bytes
+
+[*] Decrypting 74 file(s)...
+  [OK] arc_1.rar_HD -> arc_1.rar  (54356B (large-file format: head 50000 + tail 4356))
+  [OK] arc_10.7z_HD -> arc_10.7z  (27982B (small-file, prefix=3, trail_pad=7))
+  [OK] arc_11.gz_HD -> arc_11.gz  (45037B (small-file, prefix=4, trail_pad=7))
+  [OK] arc_12.zip_HD -> arc_12.zip  (8051B (small-file, prefix=6, trail_pad=7))
+  [OK] arc_13.rar_HD -> arc_13.rar  (30132B (small-file, prefix=5, trail_pad=7))
+  [OK] arc_14.rar_HD -> arc_14.rar  (50327B (large-file format: head 50000 + tail 327))
+  [OK] arc_15.gz_HD -> arc_15.gz  (13967B (small-file, prefix=10, trail_pad=7))
+  [OK] arc_2.tar_HD -> arc_2.tar  (4201B (small-file, prefix=8, trail_pad=7))
+  [OK] arc_3.tar_HD -> arc_3.tar  (64747B (large-file format: head 50000 + tail 14747))
+  [OK] arc_4.gz_HD -> arc_4.gz  (27307B (small-file, prefix=6, trail_pad=7))
+  [OK] arc_5.tar_HD -> arc_5.tar  (35532B (small-file, prefix=5, trail_pad=7))
+  [OK] arc_6.gz_HD -> arc_6.gz  (35228B (small-file, prefix=5, trail_pad=7))
+  [OK] arc_7.7z_HD -> arc_7.7z  (27803B (small-file, prefix=6, trail_pad=7))
+  [OK] arc_8.rar_HD -> arc_8.rar  (31451B (small-file, prefix=6, trail_pad=7))
+  [OK] arc_9.rar_HD -> arc_9.rar  (9069B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_1.log_HD -> rec_1.log  (24770B (small-file, prefix=7, trail_pad=7))
+  [OK] rec_1.sql_HD -> rec_1.sql  (59278B (large-file format: head 50000 + tail 9278))
+  [OK] rec_10.json_HD -> rec_10.json  (27346B (small-file, prefix=7, trail_pad=7))
+  [OK] rec_10.log_HD -> rec_10.log  (67738B (large-file format: head 50000 + tail 17738))
+  [OK] rec_11.json_HD -> rec_11.json  (13278B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_11.yaml_HD -> rec_11.yaml  (38573B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_12.ini_HD -> rec_12.ini  (69005B (large-file format: head 50000 + tail 19005))
+  [OK] rec_12.yaml_HD -> rec_12.yaml  (562202B (large-file format: head 50000 + tail 512202))
+  [OK] rec_13.json_HD -> rec_13.json  (63182B (large-file format: head 50000 + tail 13182))
+  [OK] rec_13.tsv_HD -> rec_13.tsv  (32558B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_14.tsv_HD -> rec_14.tsv  (6822B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_14.yaml_HD -> rec_14.yaml  (20869B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_15.log_HD -> rec_15.log  (14053B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_15.xml_HD -> rec_15.xml  (56141B (large-file format: head 50000 + tail 6141))
+  [OK] rec_16.json_HD -> rec_16.json  (77508B (large-file format: head 50000 + tail 27508))
+  [OK] rec_16.tsv_HD -> rec_16.tsv  (274524B (large-file format: head 50000 + tail 224524))
+  [OK] rec_17.json_HD -> rec_17.json  (42734B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_17.xml_HD -> rec_17.xml  (18253B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_18.log_HD -> rec_18.log  (12144B (small-file, prefix=9, trail_pad=7))
+  [OK] rec_18.tsv_HD -> rec_18.tsv  (17974B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_19.log_HD -> rec_19.log  (11194B (small-file, prefix=7, trail_pad=7))
+  [OK] rec_19.tsv_HD -> rec_19.tsv  (31830B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_2.json_HD -> rec_2.json  (12454B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_2.xml_HD -> rec_2.xml  (17235B (small-file, prefix=6, trail_pad=7))
+  [OK] rec_20.ini_HD -> rec_20.ini  (47157B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_20.log_HD -> rec_20.log  (462231B (large-file format: head 50000 + tail 412231))
+  [OK] rec_21.log_HD -> rec_21.log  (11318B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_22.csv_HD -> rec_22.csv  (17488B (small-file, prefix=9, trail_pad=7))
+  [OK] rec_23.json_HD -> rec_23.json  (26916B (small-file, prefix=5, trail_pad=7))
+  [OK] rec_24.csv_HD -> rec_24.csv  (482514B (large-file format: head 50000 + tail 432514))
+  [OK] rec_25.sql_HD -> rec_25.sql  (2717B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_26.yaml_HD -> rec_26.yaml  (11732B (small-file, prefix=5, trail_pad=7))
+  [OK] rec_27.log_HD -> rec_27.log  (24599B (small-file, prefix=10, trail_pad=7))
+  [OK] rec_28.sql_HD -> rec_28.sql  (959013B (large-file format: head 50000 + tail 909013))
+  [OK] rec_29.csv_HD -> rec_29.csv  (29363B (small-file, prefix=6, trail_pad=7))
+  [OK] rec_3.xml_HD -> rec_3.xml  (43677B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_30.csv_HD -> rec_30.csv  (25714B (small-file, prefix=7, trail_pad=7))
+  [OK] rec_31.xml_HD -> rec_31.xml  (15766B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_32.sql_HD -> rec_32.sql  (774949B (large-file format: head 50000 + tail 724949))
+  [OK] rec_33.json_HD -> rec_33.json  (26045B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_34.csv_HD -> rec_34.csv  (10142B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_35.sql_HD -> rec_35.sql  (16064B (small-file, prefix=9, trail_pad=7))
+  [OK] rec_36.sql_HD -> rec_36.sql  (730336B (large-file format: head 50000 + tail 680336))
+  [OK] rec_37.tsv_HD -> rec_37.tsv  (10613B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_38.tsv_HD -> rec_38.tsv  (23867B (small-file, prefix=6, trail_pad=7))
+  [OK] rec_39.yaml_HD -> rec_39.yaml  (1094B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_4.ini_HD -> rec_4.ini  (16014B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_4.yaml_HD -> rec_4.yaml  (1015924B (large-file format: head 50000 + tail 965924))
+  [OK] rec_40.json_HD -> rec_40.json  (740160B (large-file format: head 50000 + tail 690160))
+  [OK] rec_5.csv_HD -> rec_5.csv  (51419B (large-file format: head 50000 + tail 1419))
+  [OK] rec_5.sql_HD -> rec_5.sql  (12138B (small-file, prefix=7, trail_pad=7))
+  [OK] rec_6.ini_HD -> rec_6.ini  (32614B (small-file, prefix=3, trail_pad=7))
+  [OK] rec_6.tsv_HD -> rec_6.tsv  (12220B (small-file, prefix=5, trail_pad=7))
+  [OK] rec_7.sql_HD -> rec_7.sql  (1296B (small-file, prefix=9, trail_pad=7))
+  [OK] rec_7.yaml_HD -> rec_7.yaml  (5261B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_8.json_HD -> rec_8.json  (360687B (large-file format: head 50000 + tail 310687))
+  [OK] rec_8.xml_HD -> rec_8.xml  (3301B (small-file, prefix=4, trail_pad=7))
+  [OK] rec_9.json_HD -> rec_9.json  (14663B (small-file, prefix=10, trail_pad=7))
+  [OK] rec_9.sql_HD -> rec_9.sql  (11718B (small-file, prefix=3, trail_pad=7))
+
+======================================================================
+Recovery complete: 74/74 files
+Output: hd_al7kfhr7
+======================================================================
+
+Press Enter to exit...
+structural validation (no true originals for this run):
+  LOOPDETECT repetition : 39
+  all-zeros             : 20
+  shared-blob archives  : 15 of 15
+  unexplained           : 0
+  => structurally correct: 74/74
+  [LOOPDETECT] rec_1.log
+  [zeros]      rec_1.sql
+  [LOOPDETECT] rec_10.json
+  [zeros]      rec_10.log
+  [LOOPDETECT] rec_11.json
+  [zeros]      rec_11.yaml
+  [zeros]      rec_12.ini
+  [LOOPDETECT] rec_12.yaml
+  [zeros]      rec_13.json
+  [LOOPDETECT] rec_13.tsv  (repetition starts at +1)
+  [zeros]      rec_14.tsv
+  [LOOPDETECT] rec_14.yaml
+  [LOOPDETECT] rec_15.log  (repetition starts at +1)
+  [zeros]      rec_15.xml
+  [zeros]      rec_16.json
+  [LOOPDETECT] rec_16.tsv
+  [zeros]      rec_17.json
+  [LOOPDETECT] rec_17.xml
+  [LOOPDETECT] rec_18.log
+  [zeros]      rec_18.tsv
+  [LOOPDETECT] rec_19.log
+  [zeros]      rec_19.tsv
+  [zeros]      rec_2.json
+  [LOOPDETECT] rec_2.xml
+  [zeros]      rec_20.ini
+  [LOOPDETECT] rec_20.log
+  [LOOPDETECT] rec_21.log  (repetition starts at +1)
+  [LOOPDETECT] rec_22.csv
+  [LOOPDETECT] rec_23.json  (repetition starts at +1)
+  [LOOPDETECT] rec_24.csv
+  [LOOPDETECT] rec_25.sql  (repetition starts at +1)
+  [LOOPDETECT] rec_26.yaml  (repetition starts at +1)
+  [LOOPDETECT] rec_27.log
+  [LOOPDETECT] rec_28.sql
+  [LOOPDETECT] rec_29.csv
+  [zeros]      rec_3.xml
+  [LOOPDETECT] rec_30.csv  (repetition starts at +3)
+  [LOOPDETECT] rec_31.xml
+  [LOOPDETECT] rec_32.sql
+  [LOOPDETECT] rec_33.json
+  [LOOPDETECT] rec_34.csv
+  [LOOPDETECT] rec_35.sql
+  [LOOPDETECT] rec_36.sql
+  [LOOPDETECT] rec_37.tsv
+  [LOOPDETECT] rec_38.tsv
+  [LOOPDETECT] rec_39.yaml
+  [zeros]      rec_4.ini
+  [LOOPDETECT] rec_4.yaml
+  [LOOPDETECT] rec_40.json
+  [zeros]      rec_5.csv
+  [LOOPDETECT] rec_5.sql  (repetition starts at +3)
+  [zeros]      rec_6.ini
+  [LOOPDETECT] rec_6.tsv
+  [LOOPDETECT] rec_7.sql  (repetition starts at +1)
+  [zeros]      rec_7.yaml
+  [LOOPDETECT] rec_8.json
+  [zeros]      rec_8.xml
+  [LOOPDETECT] rec_9.json
+  [zeros]      rec_9.sql
+  [archive]    arc_10.7z  shared-window overlap 99.8%
+  [archive]    arc_11.gz  shared-window overlap 100.0%
+  [archive]    arc_12.zip  shared-window overlap 100.0%
+  [archive]    arc_13.rar  shared-window overlap 99.8%
+  [archive]    arc_14.rar  shared-window overlap 100.0%
+  [archive]    arc_15.gz  shared-window overlap 100.0%
+  [archive]    arc_2.tar  shared-window overlap 100.0%
+  [archive]    arc_3.tar  shared-window overlap 100.0%
+  [archive]    arc_4.gz  shared-window overlap 100.0%
+  [archive]    arc_5.tar  shared-window overlap 100.0%
+  [archive]    arc_6.gz  shared-window overlap 100.0%
+  [archive]    arc_7.7z  shared-window overlap 100.0%
+  [archive]    arc_8.rar  shared-window overlap 100.0%
+  [archive]    arc_9.rar  shared-window overlap 100.0%

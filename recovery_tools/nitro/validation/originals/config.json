@@ -1,0 +1,5 @@
+{
+  "fixture": "nitro",
+  "scheme": "AES-256-CBC + PBKDF2-HMAC-SHA1 (build-fixed password)",
+  "synthetic": true
+}

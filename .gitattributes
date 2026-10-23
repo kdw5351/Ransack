@@ -1,0 +1,5 @@
+# Validation fixtures are byte-exact test artifacts. Do not normalize line endings.
+recovery_tools/*/validation/originals/** -text
+recovery_tools/*/validation/locked/** -text
+recovery_tools/*/validation/proc/** -text
+recovery_tools/*/validation/VALIDATION.log -text

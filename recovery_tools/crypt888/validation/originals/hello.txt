@@ -1,0 +1,4 @@
+Hello, Ransack artifact evaluator.
+This is a SYNTHETIC benign file used only to demonstrate that the
+Crypt888 decryptor performs a byte-exact round-trip. No real victim
+data is shipped.

@@ -1,0 +1,1 @@
+GarrantyCrypt reproduction fixture. Benign synthetic plaintext for the Salsa20+RSA offline round-trip, no real victim data.

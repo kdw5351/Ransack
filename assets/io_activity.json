@@ -1,0 +1,1101 @@
+[
+  {
+    "dll": "ntdll.dll",
+    "func": "NtCreateFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtOpenFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtReadFile",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtReadFileScatter",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtWriteFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtWriteFileGather",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtDeleteFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtSetInformationFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtQueryInformationFile",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtFlushBuffersFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtLockFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtUnlockFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtQueryDirectoryFile",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtQueryDirectoryFileEx",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtNotifyChangeDirectoryFile",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtCreateSection",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtOpenSection",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtMapViewOfSection",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtUnmapViewOfSection",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "ntdll.dll",
+    "func": "NtFlushVirtualMemory",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Windows Native API / Windows Internals 7th ed (Yosifovich, Ionescu, Russinovich, Solomon, Microsoft Press 2017) Part 1 Chapter 8 'System Mechanisms' (NT system call interface, ntdll!Nt* / ntdll!Zw*)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFile2",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFile3",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "OpenFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReOpenFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReadFile",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReadFileEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReadFileScatter",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "WriteFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "WriteFileEx",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "WriteFileGather",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FlushFileBuffers",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetEndOfFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFilePointer",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFilePointerEx",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFileInformationByHandle",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileInformationByHandle",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileInformationByHandleEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileSize",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileSizeEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileAttributesA",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileAttributesW",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileAttributesExA",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileAttributesExW",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFileAttributesA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFileAttributesW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "SetFileTime",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "GetFileTime",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "DeleteFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "DeleteFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "DeleteFile2",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileExA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileExW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileWithProgressA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MoveFileWithProgressW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReplaceFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReplaceFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CopyFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CopyFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CopyFileExA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CopyFileExW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CopyFile2",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateHardLinkA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateHardLinkW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateSymbolicLinkA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateSymbolicLinkW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindFirstFileA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindFirstFileW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindFirstFileExA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindFirstFileExW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindNextFileA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindNextFileW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FindClose",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateDirectoryA",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateDirectoryW",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateDirectoryExA",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateDirectoryExW",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "RemoveDirectoryA",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "RemoveDirectoryW",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "ReadDirectoryChangesW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileMappingA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileMappingW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileMappingNumaA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CreateFileMappingNumaW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "OpenFileMappingA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "OpenFileMappingW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MapViewOfFile",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MapViewOfFileEx",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "MapViewOfFileExNuma",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "UnmapViewOfFile",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "FlushViewOfFile",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernel32.dll",
+    "func": "CloseHandle",
+    "group": "handle_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernel32.dll)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFile2",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFile3",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReadFile",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReadFileEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReadFileScatter",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "WriteFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "WriteFileEx",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "WriteFileGather",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FlushFileBuffers",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetEndOfFile",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetFilePointer",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetFilePointerEx",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetFileInformationByHandle",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileInformationByHandle",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileInformationByHandleEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileSize",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileSizeEx",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileAttributesA",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileAttributesW",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileAttributesExA",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "GetFileAttributesExW",
+    "group": "file_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetFileAttributesA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "SetFileAttributesW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "DeleteFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "DeleteFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MoveFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefilea)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MoveFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (https://learn.microsoft.com/en-us/windows/win32/api/winbase/nf-winbase-movefilew)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MoveFileExA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MoveFileExW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReplaceFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReplaceFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CopyFileA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CopyFileW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CopyFileExA",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CopyFileExW",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CopyFile2",
+    "group": "file_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindFirstFileA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindFirstFileW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindFirstFileExA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindFirstFileExW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindNextFileA",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindNextFileW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FindClose",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateDirectoryA",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateDirectoryW",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "RemoveDirectoryA",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "RemoveDirectoryW",
+    "group": "dir_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "ReadDirectoryChangesW",
+    "group": "dir_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileMappingA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileMappingW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileMappingNumaA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CreateFileMappingNumaW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "OpenFileMappingA",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "OpenFileMappingW",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MapViewOfFile",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MapViewOfFileEx",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "MapViewOfFileExNuma",
+    "group": "mmap_io",
+    "kind": "in",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "UnmapViewOfFile",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "FlushViewOfFile",
+    "group": "mmap_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  },
+  {
+    "dll": "kernelbase.dll",
+    "func": "CloseHandle",
+    "group": "handle_io",
+    "kind": "out",
+    "source": "Microsoft Learn Win32 API (kernelbase.dll, Windows 7+ split)"
+  }
+]

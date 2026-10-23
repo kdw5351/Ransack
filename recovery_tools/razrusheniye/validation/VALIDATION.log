@@ -1,0 +1,12 @@
+====================================================================
+razrusheniye decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 552/558 byte-exact (Table III)
+[+] key 9a4939721424b1eea87f96f4dcbd0aaf0c868fe07926aa31ffb424e8c5a67625
+[+] iv  c8c1b13f2e31056449c7f00a179f6198
+[+] confirmed by recomputed as SHA-256(crypto_10.bin[:32]); 3 of 24 sampled files fall below entropy 0.90; iv puts 19/24 first blocks on a file signature
+
+wrote 560 files -> raz_final
+byte-exact against held-out originals: 552/558
+  (6 of the rest are files whose ciphertext is shorter than the original, so the run sealed only part of them)

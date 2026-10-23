@@ -1,0 +1,6 @@
+# Ransack — Python dependencies
+#
+# Standard library covers most of the pipeline; two third-party packages are required:
+
+capstone>=5          # onHost/analysis/disasm.py — per-loop snapshot disassembly
+pycryptodome>=3.19   # recovery_tools/* — AES/RSA/ChaCha decryptors (imported as `Crypto`)

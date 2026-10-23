@@ -1,0 +1,1 @@
+Akira reproduction fixture. Benign synthetic plaintext for the ChaCha8 offline round-trip check, no real victim data here at all.

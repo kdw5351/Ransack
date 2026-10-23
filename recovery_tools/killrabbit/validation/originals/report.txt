@@ -1,0 +1,2 @@
+KillRabbit reproduction fixture.
+Benign synthetic plaintext; its AES-256-CBC ciphertext is in ../locked/.

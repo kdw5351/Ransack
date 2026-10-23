@@ -1,0 +1,1 @@
+WannaCry reproduction fixture. Benign synthetic plaintext for the RSA-recovery offline round-trip, no real victim data.

@@ -1,0 +1,648 @@
+{
+  "family": "msilheracles",
+  "session_id": "trace_MSILHeracles_27_32bit_live",
+  "trace_root": "D:\\Ransack_project_Trace\\trace_MSILHeracles_27_32bit_live",
+  "execution_quality": "indeterminate",
+  "runtime_sec": 58.718,
+  "runtime_source": "analysis_report",
+  "peak_wss": 1059446784,
+  "pin_attach_failed": false,
+  "primary_cipher": "AES-128 (key-length inferred)",
+  "primary_cipher_confidence": 0.4,
+  "key_chain_depth": 23,
+  "recovery": {
+    "passed_cases": [
+      {
+        "case_id": "RC-04",
+        "name": "untraced_symmetric_key_root",
+        "strategy": "untraced_root_replay",
+        "confidence": 0.95,
+        "recovery_value": "Key bytes=`580e98c19e4b38854e13208ae0254639`; Algorithm=AES-128, 16 B; Source=`in_buf_length_only+snapshot_extracted`; Provenance=`crypto_5.bin` offset 0 @ buf 0x1583c78; Total sym_keys=2",
+        "recovery_details": [
+          {
+            "label": "Key bytes",
+            "value": "`580e98c19e4b38854e13208ae0254639`"
+          },
+          {
+            "label": "Algorithm",
+            "value": "AES-128, 16 B"
+          },
+          {
+            "label": "Source",
+            "value": "`in_buf_length_only+snapshot_extracted`"
+          },
+          {
+            "label": "Provenance",
+            "value": "`crypto_5.bin` offset 0 @ buf 0x1583c78"
+          },
+          {
+            "label": "Total sym_keys",
+            "value": "2"
+          }
+        ],
+        "evidence_matched": [
+          {
+            "primitive": "hardcoded_key_ratio_at_least",
+            "observed": "10/10=1.00; threshold=0.80"
+          },
+          {
+            "primitive": "hardcoded_key_recoverable",
+            "observed": "direct captured key: 2 unique sym keys; threshold 1"
+          },
+          {
+            "primitive": "has_any_event",
+            "observed": "hit: ['BCryptDecrypt', 'BCryptEncrypt', 'CryptDecrypt', 'CryptEncrypt']"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-07",
+        "name": "captured_symmetric_session_keys",
+        "strategy": "sym_brute_correlation",
+        "confidence": 0.95,
+        "recovery_value": "Total sym_keys=2; Keys with captured bytes=1; Captured key samples=[`580e98c19e4b38854e13208ae0254639`]; Chaining mode (recovered)=`ECB`; IV candidate(s)=`0000000000000000` (total 1); decryption_essentials.json=present",
+        "recovery_details": [
+          {
+            "label": "Total sym_keys",
+            "value": "2"
+          },
+          {
+            "label": "Keys with captured bytes",
+            "value": "1"
+          },
+          {
+            "label": "Captured key samples",
+            "value": "\n  - `580e98c19e4b38854e13208ae0254639`"
+          },
+          {
+            "label": "Chaining mode (recovered)",
+            "value": "`ECB`"
+          },
+          {
+            "label": "IV candidate(s)",
+            "value": "`0000000000000000` (total 1)"
+          },
+          {
+            "label": "decryption_essentials.json",
+            "value": "present"
+          }
+        ],
+        "evidence_matched": [
+          {
+            "primitive": "captured_symmetric_keys_at_least",
+            "observed": "2 captured sym keys (sym_keys); threshold 1"
+          },
+          {
+            "primitive": "has_any_event",
+            "observed": "hit: ['BCryptDecrypt', 'BCryptEncrypt', 'CryptDecrypt', 'CryptEncrypt']"
+          },
+          {
+            "primitive": "file_present",
+            "observed": "decryption_essentials.json: present via crypto_events_N.jsonl (kinds=kdf,key_export,key_import,keygen)"
+          }
+        ]
+      }
+    ],
+    "failed_cases": [
+      {
+        "case_id": "RC-01",
+        "name": "rsa_private_blob_exported_full",
+        "strategy": "asym_priv_universal",
+        "confidence": 0.98,
+        "blocking": [
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 19 snapshots scanned); threshold=HIGH",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-02",
+        "name": "per_run_rsa_keypair_in_heap",
+        "strategy": "memory_residue_scan",
+        "confidence": 0.85,
+        "blocking": [
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 19 snapshots scanned); threshold=HIGH",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-03",
+        "name": "memory_residue_prime_scan_cryptoapi",
+        "strategy": "memory_residue_scan",
+        "confidence": 0.55,
+        "blocking": [
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 19 snapshots scanned); threshold=MID",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-05",
+        "name": "weak_predictable_rng_seed",
+        "strategy": "rng_seed_replay",
+        "confidence": 0.7,
+        "blocking": [
+          {
+            "primitive": "weak_rng_with_keygen",
+            "observed": "no rng→keygen path in chain graph",
+            "support": "DEGRADED"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-06",
+        "name": "decisive_cipher_artifact_captured",
+        "strategy": "concrete_artifact_to_cipher_id",
+        "confidence": 0.65,
+        "blocking": [
+          {
+            "primitive": "decisive_cipher_artifact",
+            "observed": "decisive artifacts=0: none",
+            "support": "OK"
+          }
+        ]
+      }
+    ],
+    "passed_count": 2,
+    "total_cases": 7,
+    "tier": "RC_MATCHED",
+    "validated": false
+  },
+  "loop_by_category": {
+    "file_io": {
+      "clusters": 38,
+      "iters": 228
+    },
+    "fallback": {
+      "clusters": 12,
+      "iters": 33
+    },
+    "encoding": {
+      "clusters": 37,
+      "iters": 368
+    },
+    "control_flow": {
+      "clusters": 5,
+      "iters": 21
+    }
+  },
+  "loop_by_label": {
+    "fs.read_write_pair": {
+      "clusters": 38,
+      "iters": 228,
+      "category": "file_io"
+    },
+    "unknown.utility": {
+      "clusters": 12,
+      "iters": 33,
+      "category": "fallback"
+    },
+    "encoding.base64_pack": {
+      "clusters": 37,
+      "iters": 368,
+      "category": "encoding"
+    },
+    "control.indirect_call": {
+      "clusters": 3,
+      "iters": 11,
+      "category": "control_flow"
+    },
+    "anti.short_loop": {
+      "clusters": 2,
+      "iters": 10,
+      "category": "control_flow"
+    }
+  },
+  "top_scored_loops": [
+    {
+      "score": 39,
+      "label": "encoding.base64_pack",
+      "iters": 19,
+      "header": "0x42891ad7",
+      "cluster_id": "833d53214e12",
+      "image_module": "unknown"
+    },
+    {
+      "score": 37,
+      "label": "encoding.base64_pack",
+      "iters": 18,
+      "header": "0x42891ad7",
+      "cluster_id": "833d53214e12",
+      "image_module": "unknown"
+    },
+    {
+      "score": 37,
+      "label": "encoding.base64_pack",
+      "iters": 18,
+      "header": "0x42891acb",
+      "cluster_id": "840ccf62168c",
+      "image_module": "unknown"
+    },
+    {
+      "score": 35,
+      "label": "encoding.base64_pack",
+      "iters": 17,
+      "header": "0x42895f8f",
+      "cluster_id": "3c8a174c1c30",
+      "image_module": "unknown"
+    },
+    {
+      "score": 33,
+      "label": "encoding.base64_pack",
+      "iters": 16,
+      "header": "0x42895f60",
+      "cluster_id": "9e5cda266e76",
+      "image_module": "unknown"
+    },
+    {
+      "score": 31,
+      "label": "encoding.base64_pack",
+      "iters": 15,
+      "header": "0x42891ad7",
+      "cluster_id": "833d53214e12",
+      "image_module": "unknown"
+    },
+    {
+      "score": 31,
+      "label": "fs.read_write_pair",
+      "iters": 15,
+      "header": "0x42891ad7",
+      "cluster_id": "f144c5acac05",
+      "image_module": "unknown"
+    },
+    {
+      "score": 31,
+      "label": "fs.read_write_pair",
+      "iters": 15,
+      "header": "0x428998a2",
+      "cluster_id": "bdc78e47d911",
+      "image_module": "unknown"
+    },
+    {
+      "score": 29,
+      "label": "encoding.base64_pack",
+      "iters": 14,
+      "header": "0x42891acb",
+      "cluster_id": "840ccf62168c",
+      "image_module": "unknown"
+    },
+    {
+      "score": 27,
+      "label": "encoding.base64_pack",
+      "iters": 13,
+      "header": "0x42891ad7",
+      "cluster_id": "833d53214e12",
+      "image_module": "unknown"
+    }
+  ],
+  "dll_roles": {
+    "library.unknown": 2,
+    "runtime.dotnet": 6,
+    "system.api_core": 7,
+    "system.misc": 3,
+    "crypto.provider": 4,
+    "runtime.crt": 4,
+    "crypto.primitive": 3,
+    "shell": 3,
+    "gui": 3,
+    "runtime.cpp": 1,
+    "com": 3,
+    "fs": 1,
+    "process": 1
+  },
+  "loaded_dlls": [
+    "MSILHeracles_27.exe",
+    "mscoree.dll",
+    "KernelBase.dll",
+    "kernel32.dll",
+    "ntdll.dll",
+    "apphelp.dll",
+    "advapi32.dll",
+    "msvcrt.dll",
+    "sechost.dll",
+    "rpcrt4.dll",
+    "bcrypt.dll",
+    "mscoreei.dll",
+    "shlwapi.dll",
+    "kernel.appcore.dll",
+    "version.dll",
+    "clr.dll",
+    "user32.dll",
+    "win32u.dll",
+    "gdi32.dll",
+    "vcruntime140_clr0400.dll",
+    "ucrtbase_clr0400.dll",
+    "gdi32full.dll",
+    "msvcp_win.dll",
+    "ucrtbase.dll",
+    "combase.dll",
+    "mscorlib.ni.dll",
+    "ole32.dll",
+    "bcryptprimitives.dll",
+    "clrjit.dll",
+    "oleaut32.dll",
+    "shell32.dll",
+    "windows.storage.dll",
+    "wldp.dll",
+    "SHCore.dll",
+    "System.ni.dll",
+    "cryptsp.dll",
+    "rsaenh.dll",
+    "cryptbase.dll",
+    "System.Core.ni.dll",
+    "amsi.dll",
+    "psapi.dll"
+  ],
+  "api_counts": {
+    "BCryptGenRandom": 0,
+    "SystemFunction036": 15,
+    "ProcessPrng": 0,
+    "CryptGenRandom": 4,
+    "RtlGenRandom": 0,
+    "BCryptEncrypt": 4,
+    "CryptEncrypt": 8,
+    "BCryptExportKey": 0,
+    "CryptExportKey": 6,
+    "NtWriteFile": 0,
+    "WriteFile": 0,
+    "NtReadFile": 13,
+    "ReadFile": 26,
+    "MoveFileW": 0,
+    "MoveFileExW": 0,
+    "DeleteFile": 0,
+    "DeleteFileW": 0,
+    "CreateFile": 0,
+    "CreateFileW": 55
+  },
+  "totals": {
+    "rng_calls": 19,
+    "sym_encrypt_calls": 12,
+    "writes": 0,
+    "reads": 39,
+    "deletes": 0,
+    "moves": 0,
+    "loops_total": 136,
+    "loops_crypto": 0,
+    "sym_keys_unique": 1,
+    "asym_blobs": 0,
+    "embedded_root_count": 124,
+    "sink_count": 10,
+    "hardcoded_key_ratio": 1.0
+  },
+  "residue": {
+    "class": "NONE",
+    "total_matches": 0,
+    "unique_tags_with_hit": 0,
+    "snapshots_scanned": 19
+  },
+  "cipher_constants": {
+    "status": "not_detected",
+    "hits_count": 0,
+    "scanned_loops_with_hit": 0,
+    "by_constant_count": 0,
+    "reason": "No crypto_constants.json entry matched any immediate in any loop disassembly (BE/LE + 4-byte 2's complement)."
+  },
+  "byte_signatures": {
+    "aeskeyfind_count": 0,
+    "aeskeyfind_keys": [],
+    "bcrypt_rsa_blob_count": 0,
+    "cryptoapi_rsa_blob_count": 0,
+    "avaddon_session_count": 0,
+    "wanakiwi_prime_count": 0,
+    "rsa_moduli_in_chain": 0,
+    "snapshots_scanned": 19
+  },
+  "cross_axis": {
+    "corroborated": 0,
+    "byte_gated": 0,
+    "pattern_only": 0,
+    "downgraded": 0,
+    "not_applicable": 136
+  },
+  "behavioral": {
+    "_pintool_gaps": [
+      "C2_Network",
+      "AntiAnalysis"
+    ]
+  },
+  "evasion": {
+    "suspected": false,
+    "flags": [
+      "no_file_writes"
+    ],
+    "encrypt_calls": 32,
+    "file_writes": 0,
+    "rng_calls": 15,
+    "rng_ratio": 0.032,
+    "sleep_calls": 0
+  },
+  "sym_key_inference": {
+    "total_keys": 2,
+    "with_algorithm_in": 0,
+    "inferred": 2,
+    "rules_loaded": 14,
+    "by_inferred_algo": {
+      "AES-128": 2
+    }
+  },
+  "chain_stats": {
+    "node_count": 447,
+    "edge_count": 396,
+    "source_count": 50,
+    "embedded_root_count": 124,
+    "sink_count": 10,
+    "sinks_with_rng_ancestor": 0,
+    "sinks_without_rng_ancestor": 10,
+    "hardcoded_key_ratio": 1.0,
+    "max_chain_depth": 23,
+    "rng_to_keygen_path_count": 0,
+    "rng_to_keygen_truncated": false,
+    "rng_to_keygen_paths_count": 0,
+    "sinks_count": 10,
+    "embedded_roots_count": 124
+  },
+  "loop_clusters_summary": {
+    "input_loops": 136,
+    "cluster_count": 92,
+    "compaction_ratio": 0.6764705882352942,
+    "largest_cluster": {
+      "cluster_id": "f144c5acac05",
+      "loop_count": 10,
+      "label": "fs.read_write_pair"
+    },
+    "by_label_total_iters": {
+      "fs.read_write_pair": 228,
+      "unknown.utility": 33,
+      "control.indirect_call": 11,
+      "encoding.base64_pack": 368,
+      "anti.short_loop": 10
+    },
+    "strict": false,
+    "unique_cluster_ids": 92
+  },
+  "behavior_profile_summary": {
+    "algorithms_detected_via_apis": [
+      "RtlGenRandom (alias)",
+      "system RNG"
+    ],
+    "stage1_dll_count": 0,
+    "stage2_rng_calls": 50,
+    "stage2_keygen_calls": 89,
+    "stage2_kdf_calls": 282,
+    "stage3_total_hot_loops": 136,
+    "stage3_crypto_label_loops": 0,
+    "stage3_crypto_call_loops": 0,
+    "stage3_io_loops": 0,
+    "stage4_sym_calls": 32,
+    "stage4_asym_calls": 9,
+    "stage4_memop_calls": 0,
+    "stage5_opens": 193,
+    "stage5_writes": 0,
+    "stage5_reads": 39,
+    "stage5_deletes": 0,
+    "stage5_moves": 0
+  },
+  "paper_metrics": {
+    "key_detection": "yes",
+    "file_recoverable": "partial",
+    "loop_recovery": "no"
+  },
+  "coverage_notes": [],
+  "missing_inputs": [
+    "buffer_bytes",
+    "key_derivation_tags",
+    "io_file_paths",
+    "image_module_map"
+  ],
+  "evidence_tree": {
+    "rng_apis": {
+      "BCryptCloseAlgorithmProvider": 4,
+      "CPGenRandom": 2,
+      "CryptGenRandom": 4,
+      "SystemFunction036": 15
+    },
+    "keygen_apis": {
+      "BCryptDestroyKey": 7,
+      "BCryptGenerateSymmetricKey": 4,
+      "BCryptImportKeyPair": 3,
+      "BCryptOpenAlgorithmProvider": 4,
+      "BCryptSetProperty": 6,
+      "CPDestroyKey": 5,
+      "CPImportKey": 5,
+      "CPSetKeyParam": 2,
+      "CryptAcquireContextA": 22,
+      "CryptAcquireContextW": 8,
+      "CryptDestroyKey": 10,
+      "CryptImportKey": 10,
+      "CryptReleaseContext": 24,
+      "CryptSetKeyParam": 4
+    },
+    "kdf_apis": {
+      "BCryptCreateHash": 16,
+      "BCryptDestroyHash": 16,
+      "BCryptFinishHash": 14,
+      "BCryptHashData": 14,
+      "CPCreateHash": 16,
+      "CPDestroyHash": 16,
+      "CPGetHashParam": 28,
+      "CPHashData": 14,
+      "CryptCreateHash": 32,
+      "CryptDestroyHash": 32,
+      "CryptGetHashParam": 56,
+      "CryptHashData": 28
+    },
+    "hash_apis": {},
+    "key_import": {},
+    "key_export": {},
+    "sym_sinks": {
+      "BCryptDecrypt": 4,
+      "BCryptEncrypt": 4,
+      "CPDecrypt": 4,
+      "CPEncrypt": 4,
+      "CryptDecrypt": 8,
+      "CryptEncrypt": 8
+    },
+    "asym_sinks": {
+      "CPExportKey": 3,
+      "CryptExportKey": 6
+    },
+    "by_kind": {
+      "hash": 268,
+      "keygen": 71,
+      "rand": 50,
+      "sym_enc": 32,
+      "key_import": 18,
+      "kdf": 14,
+      "key_export": 9
+    },
+    "chain_src_apis": {
+      "CryptAcquireContextW": 4,
+      "SystemFunction036": 15,
+      "CryptGenRandom": 4,
+      "CPGenRandom": 2,
+      "CryptAcquireContextA": 9,
+      "CryptReleaseContext": 12,
+      "BCryptCloseAlgorithmProvider": 4
+    },
+    "chain_embedded_root_apis": {
+      "CryptAcquireContextA": 13,
+      "CryptAcquireContextW": 4,
+      "CryptCreateHash": 32,
+      "BCryptOpenAlgorithmProvider": 4,
+      "CPCreateHash": 16,
+      "CryptHashData": 3,
+      "BCryptHashData": 8,
+      "CPHashData": 1,
+      "CPImportKey": 1,
+      "CryptSetKeyParam": 2,
+      "CPSetKeyParam": 1,
+      "CryptGetHashParam": 7,
+      "CPGetHashParam": 8,
+      "CryptReleaseContext": 10,
+      "CPExportKey": 3,
+      "CPDestroyKey": 4,
+      "CryptDestroyHash": 1,
+      "BCryptDestroyHash": 1,
+      "CPDestroyHash": 2,
+      "CryptDestroyKey": 2
+    },
+    "loops_categories": [
+      {
+        "cat": "encoding",
+        "clusters": 37,
+        "iters": 368,
+        "style": "other"
+      },
+      {
+        "cat": "file_io",
+        "clusters": 38,
+        "iters": 228,
+        "style": "file"
+      },
+      {
+        "cat": "fallback",
+        "clusters": 12,
+        "iters": 33,
+        "style": "other"
+      },
+      {
+        "cat": "control_flow",
+        "clusters": 5,
+        "iters": 21,
+        "style": "other"
+      }
+    ],
+    "files": {
+      "reads": 39
+    },
+    "inline_cipher": null
+  },
+  "generated_at": "2026-08-25T13:05:03+00:00"
+}

@@ -1,0 +1,8 @@
+{
+  "family": "Crypt888",
+  "aka": "MirCop",
+  "recovery_class": "build-fixed key",
+  "cipher": "DES-CBC",
+  "iv": 0,
+  "note": "synthetic fixture, benign"
+}

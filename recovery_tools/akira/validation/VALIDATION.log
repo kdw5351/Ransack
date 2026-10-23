@@ -1,0 +1,47 @@
+====================================================================
+akira decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 37/38 byte-exact (Table III)
+[+] key 9c6e2dbacb621997ebac79a2a947354d0e00d76b63b0039d80a083de2bde0bea  nonce 81a1c388de064073  (from crypto_12.bin)
+  [OK] 24122024.rar                   mode=1 size=457390  byte-exact
+  [OK] app.js                         mode=1 size=1355  byte-exact
+  [OK] app.log                        mode=1 size=76897  byte-exact
+  [OK] archive.7z                     mode=1 size=8196  byte-exact
+  [OK] archive.gz                     mode=1 size=8196  byte-exact
+  [OK] archive.rar                    mode=1 size=8196  byte-exact
+  [OK] archive.tar                    mode=1 size=8196  byte-exact
+  [OK] archive.zip                    mode=1 size=8196  byte-exact
+  [OK] config.xml                     mode=1 size=2602  byte-exact
+  [OK] customers.csv                  mode=1 size=17594  byte-exact
+  [OK] data.json                      mode=1 size=4800  byte-exact
+  [OK] doc_16KB.txt                   mode=1 size=16389  byte-exact
+  [OK] dump.sql                       mode=0 size=11505  byte-exact
+  [OK] ecb_probe.bin                  mode=2 size=65536  [unverified layout]  MISMATCH
+  [OK] image_1.png                    mode=1 size=39840  byte-exact
+  [OK] image_2.png                    mode=1 size=28325  byte-exact
+  [OK] image_3.png                    mode=1 size=30183  byte-exact
+  [OK] main.c                         mode=1 size=1205  byte-exact
+  [OK] manual.pdf                     mode=1 size=32785  byte-exact
+  [OK] media.avi                      mode=1 size=16384  byte-exact
+  [OK] media.mkv                      mode=1 size=16384  byte-exact
+  [OK] media.mp3                      mode=1 size=16384  byte-exact
+  [OK] media.mp4                      mode=1 size=16384  byte-exact
+  [OK] media.wav                      mode=1 size=16384  byte-exact
+  [OK] note_small.txt                 mode=1 size=20  byte-exact
+  [OK] photo_1.jpg                    mode=1 size=39842  byte-exact
+  [OK] photo_2.jpg                    mode=1 size=28327  byte-exact
+  [OK] photo_3.jpg                    mode=1 size=30185  byte-exact
+  [OK] report.doc                     mode=1 size=29705  byte-exact
+  [OK] report.docx                    mode=1 size=7178  byte-exact
+  [OK] report.hwp                     mode=1 size=28681  byte-exact
+  [OK] report.odt                     mode=1 size=27657  byte-exact
+  [OK] report.ppt                     mode=1 size=26633  byte-exact
+  [OK] report.pptx                    mode=1 size=23562  byte-exact
+  [OK] report.rtf                     mode=1 size=14345  byte-exact
+  [OK] report.xls                     mode=1 size=5129  byte-exact
+  [OK] report.xlsx                    mode=1 size=16394  byte-exact
+  [OK] script.py                      mode=1 size=1505  byte-exact
+
+Recovered 38/38 files -> repro_akira_qt9r_cxq
+Byte-exact against held-out originals: 37/38

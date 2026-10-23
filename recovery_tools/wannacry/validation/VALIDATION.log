@@ -1,0 +1,24 @@
+====================================================================
+wannacry decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 14/14 byte-exact (Table III)
+[+] recovered RSA-2048 private key from crypto_17.bin
+[+] 14 .WNCRY files -> repro_wannacry_a1wo9g_m
+
+  customers.csv                aes=8b7a55d945e62a5236322420ce83f079  17594B  -> text
+  doc_16KB.txt                 aes=f2b64ce3829dd69c52fb164bccda4dbd  16389B  -> text
+  doc_1MB.txt                  aes=057afed07b891c7b469d41d9c51f7b27  1048581B  -> text
+  manual.pdf                   aes=bfe16be945cc162ce8fa3c4c19de6374  32785B  -> pdf
+  photo_1.jpg                  aes=9adbdfd87318232533a810252fcabe68  39842B  -> jpg
+  photo_2.jpg                  aes=c719cf4bff1f17e19ba7923a51484a9e  28327B  -> jpg
+  photo_3.jpg                  aes=3d2db0540f92728d49217a1a8bd486c2  30185B  -> jpg
+  report.doc                   aes=d05d438102ad7e1ef3d234cfb7d23ddf  29705B  -> text
+  report.docx                  aes=40d848f4113ce9b5ef0e32ef7c861659  7178B  -> text
+  report.ppt                   aes=d0f5be004362f13fefb1835ce6312157  26633B  -> text
+  report.pptx                  aes=ae0cd727fb84ef191071583b5fe61975  23562B  -> text
+  report.rtf                   aes=5c9c4252ac11639a78bd72c3c5d005ca  14345B  -> text
+  report.xls                   aes=83e8a7dce5163e255c17727cc871ee3b  5129B  -> text
+  report.xlsx                  aes=2200d09bef0793da32577f7dc1fc9320  16394B  -> text
+
+[+] decrypted 14/14 files with the recovered key (no ransom paid)

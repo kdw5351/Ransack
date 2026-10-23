@@ -1,0 +1,5 @@
+{
+  "fixture": "azzasec",
+  "scheme": "AES-256-CBC, key/IV = SHA-512(password)",
+  "synthetic": true
+}

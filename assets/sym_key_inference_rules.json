@@ -1,0 +1,233 @@
+{
+  "_meta": {
+    "purpose": "Inference rules for classifying captured symmetric keys when the API symbol alone is ambiguous (e.g., BCryptGenerateSymmetricKey hits without an immediate algorithm tag). Used by sym_key_inference.py to fill in the 'algorithm' field of key_inventory entries that the upstream pipeline left as '?'. Each rule carries a spec citation per repo rule (no entry without a spec citation).",
+    "matched_by": "sym_key_inference.py (sym key inventory algorithm classification)",
+    "decision_order": "rules are evaluated in order; the first match wins."
+  },
+  "rules": [
+    {
+      "name": "tdes_24",
+      "if": {
+        "key_len_bytes": 24,
+        "context": "des"
+      },
+      "infer": {
+        "algorithm": "3DES (Triple DES, three-key option, 168 effective bits)",
+        "confidence": 0.65
+      },
+      "historical_only": true,
+      "tags": [
+        "historical"
+      ],
+      "spec_citation": "NIST SP 800-67 Rev 2 §3.1 (Triple DES, three-key option, 168 bits). WITHDRAWN 2024-01-01 (NIST SP 800-67r2). TDEA is no longer an NIST-approved block cipher; rule retained for historical corpus only.",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-67r2.pdf",
+      "note": "citation section corrected from §3 to §3.1; WITHDRAWN status (2024-01-01) added; historical_only flag set so downstream consumers do not treat this as a current-recommendation inference."
+    },
+    {
+      "name": "hmac_sha256_key",
+      "if": {
+        "key_len_bytes": 64,
+        "context_in": [
+          "hmac",
+          "kdf"
+        ],
+        "context_priority": [
+          "hmac",
+          "kdf"
+        ]
+      },
+      "infer": {
+        "algorithm": "HMAC-SHA-256 padded key buffer (B=64)",
+        "confidence": 0.8,
+        "note": "Likely the HMAC-internal zero-padded ipad/opad key buffer residue (RFC 2104) — externally-supplied keys of exactly 64 bytes are uncommon; context priority: hmac|kdf preferred to disambiguate from ed25519_extended_secret_64."
+      },
+      "spec_citation": "RFC 2104 §2 (HMAC) + FIPS 180-4 §6.2 (SHA-256 64-byte block size)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc2104",
+      "conflicts_with": "ed25519_extended_secret_64 (also 64-byte) — resolve by context"
+    },
+    {
+      "name": "hkdf_extract_prk",
+      "if": {
+        "key_len_bytes": 32,
+        "context": "hkdf_extract"
+      },
+      "infer": {
+        "algorithm": "HKDF-Extract output (PRK, SHA-256)",
+        "confidence": 0.85
+      },
+      "spec_citation": "RFC 5869 §2.2 (HKDF-Extract — output length = HashLen = 32 bytes for SHA-256)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc5869"
+    },
+    {
+      "name": "rc4_variable",
+      "if": {
+        "key_len_bytes_in": [
+          5,
+          13,
+          16,
+          24,
+          32,
+          40,
+          48,
+          56
+        ],
+        "context": "rc4"
+      },
+      "infer": {
+        "algorithm": "RC4 (variable-length)",
+        "confidence": 0.6
+      },
+      "spec_citation": "Schneier 1996 §17.1 (Applied Cryptography 2nd ed) + Microsoft CNG RC4 deprecation notice 2008",
+      "note": "RC4 supports variable key length 5-256 bytes. Cerber early variants (2016) used RC4. Modern Windows deprecated."
+    },
+    {
+      "name": "blowfish_variable",
+      "if": {
+        "key_len_bytes_in": [
+          4,
+          8,
+          16,
+          24,
+          32,
+          56
+        ],
+        "context": "blowfish"
+      },
+      "infer": {
+        "algorithm": "Blowfish (variable, 32–448 bits)",
+        "confidence": 0.55
+      },
+      "spec_citation": "Schneier 1993, FSE 1993 — Blowfish original spec",
+      "spec_url": "https://www.schneier.com/academic/blowfish/"
+    },
+    {
+      "name": "tea_xtea_xxtea_16_byte",
+      "if": {
+        "key_len_bytes": 16,
+        "context_in": [
+          "tea",
+          "xtea",
+          "xxtea"
+        ]
+      },
+      "infer": {
+        "algorithm": "TEA / XTEA / XXTEA (16-byte key)",
+        "confidence": 0.85
+      },
+      "spec_citation": "Wheeler & Needham, FSE 1994 §3 (TEA — 128-bit key, 32-round) + Needham & Wheeler 1997 (XTEA) + 1998 (XXTEA)",
+      "note": "HDLocker uses TEA-16 variant for ransom-note key encoding (paper §IV-B)."
+    },
+    {
+      "name": "salsa20_chacha20_short_key",
+      "if": {
+        "key_len_bytes": 16,
+        "context_in": [
+          "salsa",
+          "chacha"
+        ]
+      },
+      "infer": {
+        "algorithm": "Salsa20/ChaCha20 (16-byte key, expand 16-byte k variant)",
+        "confidence": 0.7
+      },
+      "spec_citation": "Bernstein 2008 (Salsa20 spec) — 'expand 16-byte k' constant variant",
+      "spec_url": "https://cr.yp.to/snuffle/spec.pdf"
+    },
+    {
+      "name": "aes_rcon_table_40",
+      "if": {
+        "key_len_bytes": 40,
+        "byte_match_any": [
+          "01020408102040801b36000000000000",
+          "0100000002000000040000000800000010000000200000004000000080000000"
+        ]
+      },
+      "infer": {
+        "algorithm": "AES Rcon table (10 words × 4 bytes per FIPS-197 §5.2 Figure 11)",
+        "confidence": 0.5
+      },
+      "spec_citation": "FIPS-197 §5.2 Figure 11 (Rcon[i] is a 4-byte word [x^(i-1),00,00,00]; AES-128 KeyExpansion uses 10 Rcon words = 10 × 4 = 40 bytes, NOT 10 bytes).",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.197-upd1.pdf",
+      "note": "previous rule used key_len_bytes=10 with confidence 0.8 — directly contradicts FIPS-197 which defines Rcon[i] as a 4-byte word, not a single byte. Length-only inference of a 10-byte buffer as Rcon table is unsupported by the spec. Rule renamed aes_rcon_table_10 -> aes_rcon_table_40, key_len_bytes corrected to 40, confidence demoted to 0.5, and a byte_match_any pattern gate is required so the Rcon bytes (01 02 04 08 10 20 40 80 1b 36) actually match — preventing 10-byte / 40-byte length-only false positives. Flag as auxiliary, not a real cipher key."
+    },
+    {
+      "name": "chacha20_nonce_12",
+      "if": {
+        "key_len_bytes": 12
+      },
+      "infer": {
+        "algorithm": "ChaCha20 nonce (96-bit IV per RFC 7539)",
+        "confidence": 0.65
+      },
+      "spec_citation": "RFC 7539 §2.3 (ChaCha20 96-bit nonce; IETF variant)",
+      "note": "12-byte residue near a ChaCha20 sink is the per-message nonce, not the key.  Flag as auxiliary."
+    },
+    {
+      "name": "des_56_or_3des",
+      "if": {
+        "key_len_bytes": 8
+      },
+      "infer": {
+        "algorithm": "DES (legacy)",
+        "confidence": 0.5
+      },
+      "spec_citation": "FIPS 46-3 §7.1 (DES 56-bit key, padded to 64 bits with parity)",
+      "spec_url": "https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf",
+      "note": "8-byte keys are rare in modern ransomware (DES is broken). Some legacy variants (early 2000s) still observed; tag as 'DES (legacy)' with low confidence."
+    },
+    {
+      "name": "aes_128_key_len",
+      "if": {
+        "key_len_bytes": 16
+      },
+      "infer": {
+        "algorithm": "AES-128",
+        "confidence": 0.85
+      },
+      "spec_citation": "FIPS-197 §5.2 (Key Expansion) — 128-bit key for 10-round AES",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "note": "16-byte key MAY also be Camellia-128 / SEED / ARIA-128 but those are extremely rare in modern ransomware corpus (none observed in our 165-sample set). AES-128 is the dominant 16-byte key cipher."
+    },
+    {
+      "name": "aes_192_key_len",
+      "if": {
+        "key_len_bytes": 24
+      },
+      "infer": {
+        "algorithm": "AES-192",
+        "confidence": 0.8
+      },
+      "spec_citation": "FIPS-197 §5.2 — 192-bit key for 12-round AES",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf"
+    },
+    {
+      "name": "aes_256_default_32_byte",
+      "if": {
+        "key_len_bytes": 32,
+        "context_not_in": [
+          "wrapped_key_sink_plaintext_binary"
+        ]
+      },
+      "infer": {
+        "algorithm": "AES-256",
+        "confidence": 0.75
+      },
+      "spec_citation": "FIPS-197 §5.2 — 256-bit key for 14-round AES",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "note": "removed 'WannaCry' example -- WannaCry is AES-128 (16-byte key) per Secureworks analysis (https://www.secureworks.com/research/wcry-ransomware-analysis); it must match aes_128_key_len, NOT this rule. Representative 32-byte examples: Crysis/Phobos, Ako, GandCrab v1-v3. A raw key||nonce blob captured at a wrap input is excluded: the trailing bytes are a stream-cipher nonce, not a 128-bit block IV, so the 32-byte length does not imply AES there."
+    },
+    {
+      "name": "ed25519_extended_secret_64",
+      "if": {
+        "key_len_bytes": 64
+      },
+      "infer": {
+        "algorithm": "Ed25519 extended secret key (32B private scalar + 32B prefix)",
+        "confidence": 0.75
+      },
+      "spec_citation": "RFC 8032 §5.1.5 (Ed25519 expansion: H(k) = scalar||prefix, 64 bytes total)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc8032",
+      "note": "64-byte residue often appears in modern RaaS that uses Curve25519 / Ed25519 (Embargo, Conti, LockBit 3.0).  Same length collides with HMAC-SHA-512 block-padded key — disambiguate via context."
+    }
+  ]
+}

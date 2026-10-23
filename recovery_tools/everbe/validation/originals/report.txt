@@ -1,0 +1,1 @@
+Everbe reproduction fixture. This benign synthetic text is the known plaintext for the offline round-trip check.

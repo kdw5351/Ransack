@@ -1,0 +1,5 @@
+{
+  "fixture": "killrabbit",
+  "scheme": "AES-256-CBC, IV=0, PKCS#7 (captured key)",
+  "synthetic": true
+}

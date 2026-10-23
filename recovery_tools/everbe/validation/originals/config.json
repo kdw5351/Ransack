@@ -1,0 +1,5 @@
+{
+  "fixture": "everbe",
+  "scheme": "AES-256-CBC, captured key, known-plaintext IV",
+  "synthetic": true
+}

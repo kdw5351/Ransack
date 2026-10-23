@@ -1,0 +1,7 @@
+{"ev":"start","pid":5096,"session":""}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\ntdll.dll","low":"77610000","high":"777b3fff","rules":5}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\advapi32.dll","low":"75d00000","high":"75d7cfff","rules":20}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\msvcrt.dll","low":"77540000","high":"775fefff","rules":1}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\bcrypt.dll","low":"77520000","high":"77538fff","rules":26}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\ucrtbase.dll","low":"773d0000","high":"774effff","rules":1}
+{"ev":"img","path":"C:\\Windows\\SysWOW64\\bcryptprimitives.dll","low":"75ca0000","high":"75cfefff","rules":23}

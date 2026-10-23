@@ -1,0 +1,37 @@
+====================================================================
+nitro decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 28/28 byte-exact (Table III)
+OK 24122024.rar                             526172211a070100 (457390 B) [byte-exact]
+  OK CryptoTracer_vm_20260501_161418.zip      504b030414000000 (19870380 B) [byte-exact]
+  OK Microsoft Edge.lnk                       4c00000001140200 (2260 B) [byte-exact]
+  SKIP (empty/0B) Nitro.exe
+  OK app.js                                   efbbbf66756e6374 (1355 B) [byte-exact]
+  OK app.log                                  efbbbf323032362d (76897 B) [byte-exact]
+  OK archive.7z                               504b0304eda50503 (8196 B) [byte-exact]
+  OK archive.gz                               504b0304ded432d4 (8196 B) [byte-exact]
+  OK archive.rar                              504b030452c7f9f2 (8196 B) [byte-exact]
+  OK archive.tar                              504b0304e620b7b6 (8196 B) [byte-exact]
+  OK archive.zip                              504b03046a488d54 (8196 B) [byte-exact]
+  OK config.xml                               efbbbf3c726f6f74 (2602 B) [byte-exact]
+  OK customers.csv                            efbbbf69642c6e61 (17594 B) [byte-exact]
+  OK data.json                                efbbbf7b22757365 (4800 B) [byte-exact]
+  ?? desktop.ini                              fffe0d000a005b00 (282 B) [byte-exact]
+  OK doc_16KB.txt                             efbbbf4141414141 (16389 B) [byte-exact]
+  OK doc_1MB.txt                              efbbbf4141414141 (1048581 B) [byte-exact]
+  OK dump.sql                                 efbbbf2d2d206261 (11505 B) [byte-exact]
+  OK ecb_probe.bin                            4141414141414141 (65536 B) [byte-exact]
+  OK image_1.png                              89504e470d0a1a0a (39840 B) [byte-exact]
+  OK image_2.png                              89504e470d0a1a0a (28325 B) [byte-exact]
+  OK image_3.png                              89504e470d0a1a0a (30183 B) [byte-exact]
+  OK main.c                                   efbbbf23696e636c (1205 B) [byte-exact]
+  OK manual.pdf                               255044462d312e34 (32785 B) [byte-exact]
+  ?? media.avi                                cb0aaf2a1e08d335 (16384 B) [byte-exact]
+  ?? media.mkv                                8401e9e3d51ac1ee (16384 B) [byte-exact]
+  ?? media.mp3                                090ffcf4459f3ceb (16384 B) [byte-exact]
+  ?? media.mp4                                639f79f67497f93c (16384 B) [byte-exact]
+  ?? media.wav                                6165c6a5a1e82fdf (16384 B) [byte-exact]
+
+[+] 28 files decrypted -> nitro_out3   (22/28 valid file signature, 1 empty skipped)
+[+] byte-exact: 28/28 checked against originals in originals_verifiable

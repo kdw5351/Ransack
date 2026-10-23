@@ -1,0 +1,39 @@
+====================================================================
+azzasec decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 30/30 byte-exact (Table III)
+[+] AES-256 key: 8ad62a70c6760a5d17531035ccb57e02bddd5027adc0a7f0d9f703b71a69b019  IV: 4122e3820d5efefcb3f24362fb2033ab
+  [OK] 24122024.rar: 457390B
+  [OK] CryptoTracer_vm_20260501_161418.zip: 19870380B
+  [OK] Microsoft Edge.lnk: 2260B
+  [OK] Process Hacker 2.lnk: 1965B
+  [OK] app.js: 1355B
+  [OK] archive.7z: 8196B
+  [OK] archive.gz: 8196B
+  [OK] archive.rar: 8196B
+  [OK] archive.zip: 8196B
+  [OK] customers.csv: 17594B
+  [OK] dump.sql: 11505B
+  [OK] fe1eafb8e31a84c14ad5638d5fd15ab18505efe4f1becaa36eb0c1d75cd1d5a9.zip: 77920B
+  [OK] image_1.png: 39840B
+  [OK] image_2.png: 28325B
+  [OK] image_3.png: 30183B
+  [OK] main.c: 1205B
+  [OK] manual.pdf: 32785B
+  [OK] media.avi: 16384B
+  [OK] media.mkv: 16384B
+  [OK] media.mp3: 16384B
+  [OK] media.mp4: 16384B
+  [OK] media.wav: 16384B
+  [OK] photo_1.jpg: 39842B
+  [OK] photo_2.jpg: 28327B
+  [OK] photo_3.jpg: 30185B
+  [OK] report.doc: 29705B
+  [OK] report.docx: 7178B
+  [OK] report.ppt: 26633B
+  [OK] report.pptx: 23562B
+  [OK] report.xls: 5129B
+  [OK] report.xlsx: 16394B
+
+[+] 31/31 written -> pool_azzasec_ktvs33_j

@@ -1,0 +1,868 @@
+{
+  "n_samples": 51,
+  "samples": [
+    {
+      "sample": "Alkhal_1 (32bit)",
+      "family": "Alkhal",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 6,
+      "primes_ok": 6,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Avaddon_17 (32bit)",
+      "family": "Avaddon",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 9,
+      "primes_ok": 9,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Avaddon_25 (32bit)",
+      "family": "Avaddon",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 9,
+      "primes_ok": 9,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Avaddon_27 (32bit)",
+      "family": "Avaddon",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 9,
+      "primes_ok": 9,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "BazarLoader_10 (64bit)",
+      "family": "BazarLoader",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 1,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Bazar_1 (64bit)",
+      "family": "Bazar",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 4,
+      "blobs_ok": 4,
+      "public_blobs": 0,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Bazar_12 (64bit)",
+      "family": "Bazar",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 1,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Bazar_15 (32bit, 64bit)",
+      "family": "Bazar",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 10,
+      "blobs_ok": 10,
+      "public_blobs": 0,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Bazar_16 (64bit)",
+      "family": "Bazar",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 7,
+      "blobs_ok": 7,
+      "public_blobs": 0,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Bazar_17 (64bit)",
+      "family": "Bazar",
+      "rc": [
+        "RC-02"
+      ],
+      "blobs_checked": 5,
+      "blobs_ok": 5,
+      "public_blobs": 0,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "BlackHunt_1 (32bit, 64bit)",
+      "family": "BlackHunt",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 18,
+      "primes_ok": 18,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Clop_18 (32bit)",
+      "family": "Clop",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 24,
+      "blobs_ok": 24,
+      "public_blobs": 0,
+      "primes_checked": 48,
+      "primes_ok": 48,
+      "moduli": 24,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Delshad_26 (64bit)",
+      "family": "Delshad",
+      "rc": [
+        "RC-01",
+        "RC-02"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 4,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Djvu_10 (32bit)",
+      "family": "Djvu",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 6,
+      "primes_ok": 6,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "FuxSocy_1 (32bit)",
+      "family": "FuxSocy",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_1 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_10 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_11 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_12 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_13 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_14 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_15 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_16 (32bit, 64bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_17 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_18 (32bit, 64bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_19 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_20 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_21 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_22 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_24 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_25 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_26 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_27 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_28 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GandCrab_9 (32bit)",
+      "family": "GandCrab",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GarrantDecrypt_5 (32bit)",
+      "family": "GarrantDecrypt",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "GarrantyCrypt_1 (32bit)",
+      "family": "GarrantyCrypt",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "IMPS_10 (32bit)",
+      "family": "IMPS",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "IMPS_19 (32bit, 64bit)",
+      "family": "IMPS",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 18,
+      "primes_ok": 18,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Jalapeno_10 (32bit)",
+      "family": "Jalapeno",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Marte_11 (32bit)",
+      "family": "Marte",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 4,
+      "blobs_ok": 4,
+      "public_blobs": 0,
+      "primes_checked": 10,
+      "primes_ok": 10,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Nemty_2 (32bit)",
+      "family": "Nemty",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 8,
+      "primes_ok": 8,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Nemty_3 (32bit)",
+      "family": "Nemty",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Nemty_4 (32bit)",
+      "family": "Nemty",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 6,
+      "primes_ok": 6,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Rapid_5 (32bit, 64bit)",
+      "family": "Rapid",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 2,
+      "blobs_ok": 2,
+      "public_blobs": 0,
+      "primes_checked": 4,
+      "primes_ok": 4,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Rapid_6 (32bit, 64bit)",
+      "family": "Rapid",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Spora_22 (32bit)",
+      "family": "Spora",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 3,
+      "blobs_ok": 3,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "Spora_24 (32bit)",
+      "family": "Spora",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 1,
+      "blobs_ok": 1,
+      "public_blobs": 0,
+      "primes_checked": 2,
+      "primes_ok": 2,
+      "moduli": 1,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "WannaCry_3 (32bit)",
+      "family": "WannaCry",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 0,
+      "blobs_ok": 0,
+      "public_blobs": 0,
+      "primes_checked": 0,
+      "primes_ok": 0,
+      "moduli": 0,
+      "fails": [],
+      "verified": false
+    },
+    {
+      "sample": "WannaCry_7 (32bit)",
+      "family": "WannaCry",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 4,
+      "blobs_ok": 4,
+      "public_blobs": 0,
+      "primes_checked": 12,
+      "primes_ok": 12,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    },
+    {
+      "sample": "WannaCry_8 (32bit)",
+      "family": "WannaCry",
+      "rc": [
+        "RC-01",
+        "RC-02",
+        "RC-03"
+      ],
+      "blobs_checked": 4,
+      "blobs_ok": 4,
+      "public_blobs": 0,
+      "primes_checked": 9,
+      "primes_ok": 9,
+      "moduli": 2,
+      "fails": [],
+      "verified": true
+    }
+  ],
+  "totals": {
+    "blobs_checked": 113,
+    "blobs_ok": 113,
+    "primes_checked": 240,
+    "primes_ok": 240,
+    "public_blobs": 6,
+    "public_only": 0,
+    "samples_verified": 50
+  }
+}

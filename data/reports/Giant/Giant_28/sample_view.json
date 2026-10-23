@@ -1,0 +1,702 @@
+{
+  "family": "giant",
+  "session_id": "trace_Giant_28_32bit_live",
+  "trace_root": "D:\\Ransack_project_Trace\\trace_Giant_28_32bit_live",
+  "execution_quality": "encrypted_complete",
+  "runtime_sec": 42.703,
+  "runtime_source": "analysis_report",
+  "peak_wss": 984227840,
+  "pin_attach_failed": false,
+  "primary_cipher": "XOR (stream) (heuristic, unconfirmed)",
+  "primary_cipher_confidence": 0.35,
+  "key_chain_depth": 553,
+  "recovery": {
+    "passed_cases": [
+      {
+        "case_id": "RC-06",
+        "name": "decisive_cipher_artifact_captured",
+        "strategy": "concrete_artifact_to_cipher_id",
+        "confidence": 0.65,
+        "recovery_value": "Decisive artifacts=decisive artifacts=1: ['bytesig:bcrypt_rsa_blob(1)']; Residue class=`NONE`; Residue matches=0; Recovery basis=A captured cipher constant / key-residue signature / family marker pins the cipher/family -- a partial-recovery path (feasibility), not a guaranteed full-key dump",
+        "recovery_details": [
+          {
+            "label": "Decisive artifacts",
+            "value": "decisive artifacts=1: ['bytesig:bcrypt_rsa_blob(1)']"
+          },
+          {
+            "label": "Residue class",
+            "value": "`NONE`"
+          },
+          {
+            "label": "Residue matches",
+            "value": "0"
+          },
+          {
+            "label": "Recovery basis",
+            "value": "A captured cipher constant / key-residue signature / family marker pins the cipher/family -- a partial-recovery path (feasibility), not a guaranteed full-key dump"
+          }
+        ],
+        "evidence_matched": [
+          {
+            "primitive": "decisive_cipher_artifact",
+            "observed": "decisive artifacts=1: ['bytesig:bcrypt_rsa_blob(1)']"
+          }
+        ]
+      }
+    ],
+    "failed_cases": [
+      {
+        "case_id": "RC-01",
+        "name": "rsa_private_blob_exported_full",
+        "strategy": "asym_priv_universal",
+        "confidence": 0.98,
+        "blocking": [
+          {
+            "primitive": "has_any_event",
+            "observed": "hit: none",
+            "support": "OK"
+          },
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 32 snapshots scanned); threshold=HIGH",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-02",
+        "name": "per_run_rsa_keypair_in_heap",
+        "strategy": "memory_residue_scan",
+        "confidence": 0.85,
+        "blocking": [
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 32 snapshots scanned); threshold=HIGH",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-03",
+        "name": "memory_residue_prime_scan_cryptoapi",
+        "strategy": "memory_residue_scan",
+        "confidence": 0.55,
+        "blocking": [
+          {
+            "primitive": "residue_class_at_least",
+            "observed": "residue=NONE (0 matches, 0 unique tags, 32 snapshots scanned); threshold=MID",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-04",
+        "name": "untraced_symmetric_key_root",
+        "strategy": "untraced_root_replay",
+        "confidence": 0.95,
+        "blocking": [
+          {
+            "primitive": "has_any_event",
+            "observed": "hit: none",
+            "support": "OK"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-05",
+        "name": "weak_predictable_rng_seed",
+        "strategy": "rng_seed_replay",
+        "confidence": 0.7,
+        "blocking": [
+          {
+            "primitive": "weak_rng_with_keygen",
+            "observed": "no rng→keygen path in chain graph",
+            "support": "DEGRADED"
+          }
+        ]
+      },
+      {
+        "case_id": "RC-07",
+        "name": "captured_symmetric_session_keys",
+        "strategy": "sym_brute_correlation",
+        "confidence": 0.95,
+        "blocking": [
+          {
+            "primitive": "has_any_event",
+            "observed": "hit: none",
+            "support": "OK"
+          }
+        ]
+      }
+    ],
+    "passed_count": 1,
+    "total_cases": 7,
+    "tier": "RC_MATCHED",
+    "validated": false
+  },
+  "loop_by_category": {
+    "control_flow": {
+      "clusters": 39,
+      "iters": 317
+    },
+    "fallback": {
+      "clusters": 70,
+      "iters": 210
+    },
+    "file_io": {
+      "clusters": 37,
+      "iters": 86
+    },
+    "memory_pack": {
+      "clusters": 1,
+      "iters": 2
+    },
+    "memory_scan": {
+      "clusters": 1,
+      "iters": 126
+    },
+    "memory_copy": {
+      "clusters": 4,
+      "iters": 9
+    },
+    "crypto": {
+      "clusters": 3,
+      "iters": 6
+    }
+  },
+  "loop_by_label": {
+    "anti.short_loop": {
+      "clusters": 35,
+      "iters": 305,
+      "category": "control_flow"
+    },
+    "unknown.utility": {
+      "clusters": 70,
+      "iters": 210,
+      "category": "fallback"
+    },
+    "fs.read_write_pair": {
+      "clusters": 37,
+      "iters": 86,
+      "category": "file_io"
+    },
+    "memory.bitfield_assemble": {
+      "clusters": 1,
+      "iters": 2,
+      "category": "memory_pack"
+    },
+    "counter.cmp_jb_walk": {
+      "clusters": 4,
+      "iters": 12,
+      "category": "control_flow"
+    },
+    "memory.byte_or_scan": {
+      "clusters": 1,
+      "iters": 126,
+      "category": "memory_scan"
+    },
+    "memory.bulk_movups_sse": {
+      "clusters": 4,
+      "iters": 9,
+      "category": "memory_copy"
+    },
+    "crypto.xor_stream": {
+      "clusters": 3,
+      "iters": 6,
+      "category": "crypto"
+    }
+  },
+  "top_scored_loops": [
+    {
+      "score": 252,
+      "label": "memory.byte_or_scan",
+      "iters": 126,
+      "header": "0x6c6163e3",
+      "cluster_id": "a79a3ea50d15",
+      "image_module": "pre921d.tmp"
+    },
+    {
+      "score": 8,
+      "label": "memory.bulk_movups_sse",
+      "iters": 3,
+      "header": "0x95fd10",
+      "cluster_id": "a7ccb7b6573c",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 8,
+      "label": "unknown.utility",
+      "iters": 8,
+      "header": "0x82c7e5",
+      "cluster_id": "a8893bc63fd7",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 7,
+      "label": "unknown.utility",
+      "iters": 7,
+      "header": "0x9e51f7",
+      "cluster_id": "8e315fbfe389",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 7,
+      "label": "crypto.xor_stream",
+      "iters": 2,
+      "header": "0x9ac270",
+      "cluster_id": "f1e2ddc841f5",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 7,
+      "label": "crypto.xor_stream",
+      "iters": 2,
+      "header": "0x9ea3d0",
+      "cluster_id": "14a05cb1bee1",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 7,
+      "label": "crypto.xor_stream",
+      "iters": 2,
+      "header": "0x7b9930",
+      "cluster_id": "8ae731199fc9",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 6,
+      "label": "fs.read_write_pair",
+      "iters": 3,
+      "header": "0x92d60a",
+      "cluster_id": "b4dbd8d245dc",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 6,
+      "label": "fs.read_write_pair",
+      "iters": 3,
+      "header": "0x9731b0",
+      "cluster_id": "dedef4305bf6",
+      "image_module": "giant_28.exe"
+    },
+    {
+      "score": 6,
+      "label": "fs.read_write_pair",
+      "iters": 3,
+      "header": "0x6c609737",
+      "cluster_id": "faadde9b1760",
+      "image_module": "pre921d.tmp"
+    }
+  ],
+  "dll_roles": {
+    "library.unknown": 13,
+    "system.api_core": 8,
+    "runtime.crt": 2,
+    "gui": 10,
+    "runtime.cpp": 1,
+    "process": 3,
+    "com": 5,
+    "crypto.primitive": 4,
+    "crypto.provider": 6,
+    "system.misc": 10,
+    "shell": 4,
+    "network": 15,
+    "fs": 3,
+    "runtime.dotnet": 2
+  },
+  "loaded_dlls": [
+    "Giant_28.exe",
+    "KernelBase.dll",
+    "kernel32.dll",
+    "ntdll.dll",
+    "imagehlp.dll",
+    "ucrtbase.dll",
+    "user32.dll",
+    "win32u.dll",
+    "gdi32.dll",
+    "gdi32full.dll",
+    "msvcp_win.dll",
+    "psapi.dll",
+    "WindowsCodecs.dll",
+    "msvcrt.dll",
+    "oleaut32.dll",
+    "combase.dll",
+    "rpcrt4.dll",
+    "bcrypt.dll",
+    "advapi32.dll",
+    "sechost.dll",
+    "msi.dll",
+    "shell32.dll",
+    "ole32.dll",
+    "usp10.dll",
+    "msls31.dll",
+    "version.dll",
+    "mpr.dll",
+    "uxtheme.dll",
+    "profapi.dll",
+    "gdiplus.dll",
+    "userenv.dll",
+    "dwmapi.dll",
+    "davhlpr.dll",
+    "comctl32.dll",
+    "imm32.dll",
+    "comdlg32.dll",
+    "SHCore.dll",
+    "shlwapi.dll",
+    "msimg32.dll",
+    "dbghelp.dll",
+    "wininet.dll",
+    "urlmon.dll",
+    "iertutil.dll",
+    "netutils.dll",
+    "windows.storage.dll",
+    "srvcli.dll",
+    "wldp.dll",
+    "cabinet.dll",
+    "propsys.dll",
+    "rsaenh.dll",
+    "apphelp.dll",
+    "msasn1.dll",
+    "crypt32.dll",
+    "wintrust.dll",
+    "setupapi.dll",
+    "cfgmgr32.dll",
+    "msihnd.dll",
+    "cryptsp.dll",
+    "secur32.dll",
+    "samcli.dll",
+    "ws2_32.dll",
+    "netapi32.dll",
+    "wkscli.dll",
+    "kernel.appcore.dll",
+    "bcryptprimitives.dll",
+    "riched20.dll",
+    "clbcatq.dll",
+    "atlthunk.dll",
+    "TextShaping.dll",
+    "sspicli.dll",
+    "ExplorerFrame.dll",
+    "d2d1.dll",
+    "coml2.dll",
+    "cryptbase.dll",
+    "msisip.dll",
+    "gpapi.dll",
+    "cryptnet.dll",
+    "IPHLPAPI.DLL",
+    "winnsi.dll",
+    "nsi.dll",
+    "mscoree.dll",
+    "mscoreei.dll",
+    "pcacli.dll",
+    "ntmarta.dll",
+    "pre921D.tmp",
+    "taskschd.dll"
+  ],
+  "api_counts": {
+    "BCryptGenRandom": 0,
+    "SystemFunction036": 2,
+    "ProcessPrng": 0,
+    "CryptGenRandom": 0,
+    "RtlGenRandom": 0,
+    "BCryptEncrypt": 0,
+    "CryptEncrypt": 0,
+    "BCryptExportKey": 0,
+    "CryptExportKey": 0,
+    "NtWriteFile": 1312,
+    "WriteFile": 2624,
+    "NtReadFile": 1317,
+    "ReadFile": 2578,
+    "MoveFileW": 0,
+    "MoveFileExW": 8,
+    "DeleteFile": 0,
+    "DeleteFileW": 18,
+    "CreateFile": 0,
+    "CreateFileW": 127
+  },
+  "totals": {
+    "rng_calls": 2,
+    "sym_encrypt_calls": 0,
+    "writes": 3936,
+    "reads": 3895,
+    "deletes": 18,
+    "moves": 8,
+    "loops_total": 246,
+    "loops_crypto": 3,
+    "sym_keys_unique": 0,
+    "asym_blobs": 0,
+    "embedded_root_count": 92,
+    "sink_count": 15,
+    "hardcoded_key_ratio": 1.0
+  },
+  "residue": {
+    "class": "NONE",
+    "total_matches": 0,
+    "unique_tags_with_hit": 0,
+    "snapshots_scanned": 32
+  },
+  "cipher_constants": {
+    "status": "not_detected",
+    "hits_count": 0,
+    "scanned_loops_with_hit": 0,
+    "by_constant_count": 0,
+    "reason": "No crypto_constants.json entry matched any immediate in any loop disassembly (BE/LE + 4-byte 2's complement)."
+  },
+  "byte_signatures": {
+    "aeskeyfind_count": 0,
+    "aeskeyfind_keys": [],
+    "bcrypt_rsa_blob_count": 1,
+    "cryptoapi_rsa_blob_count": 0,
+    "avaddon_session_count": 0,
+    "wanakiwi_prime_count": 0,
+    "rsa_moduli_in_chain": 0,
+    "snapshots_scanned": 32
+  },
+  "cross_axis": {
+    "corroborated": 3,
+    "byte_gated": 0,
+    "pattern_only": 0,
+    "downgraded": 0,
+    "not_applicable": 243
+  },
+  "behavioral": {
+    "FileRename": {
+      "total": 110,
+      "api_count": 2,
+      "top_apis": [
+        {
+          "api": "NtSetInformationFile",
+          "count": 102
+        },
+        {
+          "api": "MoveFileExW",
+          "count": 8
+        }
+      ]
+    },
+    "FileDelete": {
+      "total": 18,
+      "api_count": 1,
+      "top_apis": [
+        {
+          "api": "DeleteFileW",
+          "count": 18
+        }
+      ]
+    },
+    "_pintool_gaps": [
+      "C2_Network",
+      "AntiAnalysis"
+    ]
+  },
+  "evasion": {
+    "suspected": false,
+    "flags": [],
+    "encrypt_calls": 15,
+    "file_writes": 3936,
+    "rng_calls": 2,
+    "rng_ratio": 0.001,
+    "sleep_calls": 0
+  },
+  "sym_key_inference": {
+    "total_keys": 1,
+    "with_algorithm_in": 0,
+    "inferred": 1,
+    "rules_loaded": 14,
+    "by_inferred_algo": {
+      "AES-256": 1
+    }
+  },
+  "chain_stats": {
+    "node_count": 1801,
+    "edge_count": 1791,
+    "source_count": 10,
+    "embedded_root_count": 92,
+    "sink_count": 15,
+    "sinks_with_rng_ancestor": 0,
+    "sinks_without_rng_ancestor": 15,
+    "hardcoded_key_ratio": 1.0,
+    "max_chain_depth": 553,
+    "rng_to_keygen_path_count": 0,
+    "rng_to_keygen_truncated": false,
+    "rng_to_keygen_paths_count": 0,
+    "sinks_count": 15,
+    "embedded_roots_count": 92
+  },
+  "loop_clusters_summary": {
+    "input_loops": 246,
+    "cluster_count": 155,
+    "compaction_ratio": 0.6300813008130082,
+    "largest_cluster": {
+      "cluster_id": "67057b7761a8",
+      "loop_count": 34,
+      "label": "anti.short_loop"
+    },
+    "by_label_total_iters": {
+      "anti.short_loop": 305,
+      "unknown.utility": 210,
+      "fs.read_write_pair": 86,
+      "memory.bulk_movups_sse": 9,
+      "counter.cmp_jb_walk": 12,
+      "crypto.xor_stream": 6,
+      "memory.bitfield_assemble": 2,
+      "memory.byte_or_scan": 126
+    },
+    "strict": false,
+    "unique_cluster_ids": 155
+  },
+  "behavior_profile_summary": {
+    "algorithms_detected_via_apis": [
+      "RtlGenRandom (alias)"
+    ],
+    "stage1_dll_count": 0,
+    "stage2_rng_calls": 10,
+    "stage2_keygen_calls": 95,
+    "stage2_kdf_calls": 1696,
+    "stage3_total_hot_loops": 246,
+    "stage3_crypto_label_loops": 3,
+    "stage3_crypto_call_loops": 0,
+    "stage3_io_loops": 0,
+    "stage4_sym_calls": 0,
+    "stage4_asym_calls": 15,
+    "stage4_memop_calls": 20,
+    "stage5_opens": 984,
+    "stage5_writes": 3936,
+    "stage5_reads": 3895,
+    "stage5_deletes": 18,
+    "stage5_moves": 8
+  },
+  "paper_metrics": {
+    "key_detection": "yes",
+    "file_recoverable": "yes",
+    "loop_recovery": "yes"
+  },
+  "coverage_notes": [],
+  "missing_inputs": [
+    "buffer_bytes",
+    "key_derivation_tags",
+    "io_file_paths",
+    "image_module_map"
+  ],
+  "evidence_tree": {
+    "rng_apis": {
+      "BCryptCloseAlgorithmProvider": 8,
+      "SystemFunction036": 2
+    },
+    "keygen_apis": {
+      "BCryptDestroyKey": 21,
+      "BCryptImportKeyPair": 21,
+      "BCryptOpenAlgorithmProvider": 12,
+      "CPDestroyKey": 7,
+      "CPGetKeyParam": 5,
+      "CPImportKey": 7,
+      "CryptAcquireContextA": 2,
+      "CryptDestroyKey": 7,
+      "CryptGetKeyParam": 5,
+      "CryptImportKey": 7,
+      "CryptReleaseContext": 1
+    },
+    "kdf_apis": {
+      "BCryptCreateHash": 34,
+      "BCryptDestroyHash": 33,
+      "BCryptFinishHash": 32,
+      "BCryptHashData": 411,
+      "CPCreateHash": 4,
+      "CPDestroyHash": 4,
+      "CPGetHashParam": 6,
+      "CPHashData": 382,
+      "CryptCreateHash": 6,
+      "CryptDestroyHash": 6,
+      "CryptGetHashParam": 8,
+      "CryptHashCertificate": 8,
+      "CryptHashData": 762
+    },
+    "hash_apis": {},
+    "key_import": {},
+    "key_export": {},
+    "sym_sinks": {},
+    "asym_sinks": {
+      "BCryptVerifySignature": 15
+    },
+    "by_kind": {
+      "hash": 1664,
+      "keygen": 60,
+      "key_import": 35,
+      "kdf": 32,
+      "normal_op": 20,
+      "asym_enc": 15,
+      "rand": 10
+    },
+    "chain_src_apis": {
+      "SystemFunction036": 2,
+      "BCryptCloseAlgorithmProvider": 8
+    },
+    "chain_embedded_root_apis": {
+      "CryptAcquireContextA": 2,
+      "BCryptOpenAlgorithmProvider": 12,
+      "BCryptHashData": 23,
+      "CryptCreateHash": 6,
+      "CPCreateHash": 4,
+      "CryptHashData": 4,
+      "CPHashData": 4,
+      "CPImportKey": 4,
+      "CryptGetKeyParam": 5,
+      "CPGetKeyParam": 5,
+      "CryptDestroyKey": 7,
+      "CPDestroyKey": 7,
+      "CryptHashCertificate": 8,
+      "CryptReleaseContext": 1
+    },
+    "loops_categories": [
+      {
+        "cat": "control_flow",
+        "clusters": 39,
+        "iters": 317,
+        "style": "other"
+      },
+      {
+        "cat": "fallback",
+        "clusters": 70,
+        "iters": 210,
+        "style": "other"
+      },
+      {
+        "cat": "memory_scan",
+        "clusters": 1,
+        "iters": 126,
+        "style": "other"
+      },
+      {
+        "cat": "file_io",
+        "clusters": 37,
+        "iters": 86,
+        "style": "file"
+      },
+      {
+        "cat": "memory_copy",
+        "clusters": 4,
+        "iters": 9,
+        "style": "other"
+      },
+      {
+        "cat": "crypto",
+        "clusters": 3,
+        "iters": 6,
+        "style": "cryptol"
+      },
+      {
+        "cat": "memory_pack",
+        "clusters": 1,
+        "iters": 2,
+        "style": "other"
+      }
+    ],
+    "files": {
+      "reads": 3895,
+      "writes": 3936,
+      "moves": 8,
+      "deletes": 18
+    },
+    "inline_cipher": "crypto.xor_stream"
+  },
+  "generated_at": "2026-08-25T11:32:15+00:00"
+}

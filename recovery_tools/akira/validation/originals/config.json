@@ -1,0 +1,6 @@
+{
+  "fixture": "akira",
+  "scheme": "ChaCha8 keystream-XOR, captured key+nonce",
+  "synthetic": true,
+  "modes": [0, 1]
+}

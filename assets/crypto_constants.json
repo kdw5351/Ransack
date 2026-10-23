@@ -1,0 +1,1507 @@
+{
+  "_meta": {
+    "purpose": "Constants/magic-bytes used by ransomware crypto code. Found in .rdata or computed at startup.",
+    "matched_by": "cipher_constants.py (scans loop-body immediates), residue scanners",
+    "sources": [
+      "7-Zip 7zAES public format specification",
+      "Argon2 reference / RFC-9106",
+      "Bouncy Castle / OpenSSL EVP_KDF / NIST SP 800-108 (KDF)",
+      "Crypto++ cryptlib.h public API (well-known public class/method names)",
+      "Curve25519 reference implementation (DJB) - public",
+      "FIPS-180-4 (SHA family)",
+      "FIPS-197 (AES Rijndael)",
+      "FIPS-202 (SHA-3 / Keccak)",
+      "MITRE ATT&CK T1486 (Data Encrypted for Impact) - public reference",
+      "Microsoft CNG / BCrypt / WinCrypt public API documentation (learn.microsoft.com)",
+      "NTRU / Kyber / NIST PQC public references",
+      "OpenSSL public headers (evp.h, aes.h, rsa.h, chacha.h, ec.h, kdf.h) - well-known public API",
+      "Public reverse-engineering literature on ransomware families (Sodinokibi/REvil, Conti, LockBit, BlackCat/ALPHV, Babuk, DarkSide, Maze, Ryuk, Phobos, GandCrab, Hermes, Petya, NotPetya, BadRabbit, Cerber, Globe, Stop/Djvu, Avaddon, Snake, Egregor, Avos, Hive, BlackByte)",
+      "RFC-2898/PKCS#5 (PBKDF2)",
+      "RFC-7539 (ChaCha20/Poly1305)",
+      "RFC-7748 (X25519/X448)",
+      "RFC-7914 (scrypt)",
+      "RFC-8032 (Ed25519/Ed448)",
+      "RFC-8439 (ChaCha20/Poly1305 AEAD update)",
+      "libsodium public API documentation (doc.libsodium.org) - crypto_* function index",
+      "mbedTLS public headers (well-known public API)"
+    ],
+    "last_consolidated": "2026-05-20",
+    "consolidation_note": "Merged constants[] + self_prng_indicators[] + hardcoded_key_indicators[] previously living in crypto_signatures_extended.json (now retired) so all byte-magic detection data lives in one file. Also merged RSA padding constants + EVP_KDF_fetch name strings from the retired openssl_symbols.json (2026-05-20).",
+    "history": [
+      {
+        "date": "2026-06-03",
+        "label": "C5FIX",
+        "note": "Applied 12 CRITICAL crypto-constants corrections (serpent_phi, rc6_p32, sha384_iv, aes_te0/td0, twofish q0/q1, petya->verification_fill, darkside_footer quarantine, babuk_marker !!, pem_rsa label, calg_des)."
+      }
+    ]
+  },
+  "constants": [
+    {
+      "name": "sha256_iv",
+      "algo": "SHA-256",
+      "bytes_hex_le": "67e6096a85ae67bb72f36e3c3af54fa57f520e518c68059babd9831f19cde05b",
+      "size": 32,
+      "description": "SHA-256 initial hash values H0..H7 (eight 32-bit words derived from the fractional parts of the square roots of the first 8 primes).",
+      "spec_citation": "FIPS 180-4 §5.3.3 (SHA-256 initial hash value)",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "sha512_iv",
+      "algo": "SHA-512",
+      "bytes_hex_le": "08c9bcf367e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b",
+      "size": 64,
+      "description": "SHA-512 initial hash values H0..H7 (eight 64-bit words from the fractional parts of the square roots of the first 8 primes).",
+      "spec_citation": "NIST FIPS 180-4 Sec 5.3.5 (SHA-512 initial hash values H0..H7)",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+      "bytes_hex_be": "6a09e667f3bcc908bb67ae8584caa73b3c6ef372fe94f82ba54ff53a5f1d36f1510e527fade682d19b05688c2b3e6c1f1f83d9abfb41bd6b5be0cd19137e2179",
+      "_note": "Regenerated from NIST FIPS 180-4 canonical values on 2026-06-03 (prior catalog had size/hex length mismatch)",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "md5_iv",
+      "algo": "MD5",
+      "bytes_hex_le": "0123456789abcdeffedcba9876543210",
+      "size": 16,
+      "description": "MD5 initial buffer A=0x67452301, B=0xefcdab89, C=0x98badcfe, D=0x10325476.",
+      "spec_citation": "RFC 1321 §3.3 (Step 3. Initialize MD Buffer)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc1321",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "aes_sbox",
+      "algo": "AES",
+      "size": 256,
+      "first_bytes": "637c777bf26b6fc53001672bfed7ab76",
+      "description": "AES Rijndael S-box (full 256 bytes); only first 16 stored for matching.  Inverse affine transformation over GF(2^8) of the multiplicative inverse.",
+      "spec_citation": "FIPS 197 §5.1.1 (SubBytes Transformation, Figure 7)",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "bytes_hex_le": "637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16",
+      "bytes_hex_be": "637c777bf26b6fc53001672bfed7ab76ca82c97dfa5947f0add4a2af9ca472c0b7fd9326363ff7cc34a5e5f171d8311504c723c31896059a071280e2eb27b27509832c1a1b6e5aa0523bd6b329e32f8453d100ed20fcb15b6acbbe394a4c58cfd0efaafb434d338545f9027f503c9fa851a3408f929d38f5bcb6da2110fff3d2cd0c13ec5f974417c4a77e3d645d197360814fdc222a908846eeb814de5e0bdbe0323a0a4906245cc2d3ac629195e479e7c8376d8dd54ea96c56f4ea657aae08ba78252e1ca6b4c6e8dd741f4bbd8b8a703eb5664803f60e613557b986c11d9ee1f8981169d98e949b1e87e9ce5528df8ca1890dbfe6426841992d0fb054bb16",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aes_inv_sbox",
+      "algo": "AES",
+      "size": 256,
+      "first_bytes": "52096ad53036a538bf40a39e81f3d7fb",
+      "description": "AES Rijndael inverse S-box used by InvSubBytes() during decryption.",
+      "spec_citation": "FIPS 197 §5.3.2 (InvSubBytes Transformation, Figure 14)",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "bytes_hex_le": "52096ad53036a538bf40a39e81f3d7fb7ce339829b2fff87348e4344c4dee9cb547b9432a6c2233dee4c950b42fac34e082ea16628d924b2765ba2496d8bd12572f8f66486689816d4a45ccc5d65b6926c704850fdedb9da5e154657a78d9d8490d8ab008cbcd30af7e45805b8b34506d02c1e8fca3f0f02c1afbd0301138a6b3a9111414f67dcea97f2cfcef0b4e67396ac7422e7ad3585e2f937e81c75df6e47f11a711d29c5896fb7620eaa18be1bfc563e4bc6d279209adbc0fe78cd5af41fdda8338807c731b11210592780ec5f60517fa919b54a0d2de57a9f93c99cefa0e03b4dae2af5b0c8ebbb3c83539961172b047eba77d626e169146355210c7d",
+      "bytes_hex_be": "52096ad53036a538bf40a39e81f3d7fb7ce339829b2fff87348e4344c4dee9cb547b9432a6c2233dee4c950b42fac34e082ea16628d924b2765ba2496d8bd12572f8f66486689816d4a45ccc5d65b6926c704850fdedb9da5e154657a78d9d8490d8ab008cbcd30af7e45805b8b34506d02c1e8fca3f0f02c1afbd0301138a6b3a9111414f67dcea97f2cfcef0b4e67396ac7422e7ad3585e2f937e81c75df6e47f11a711d29c5896fb7620eaa18be1bfc563e4bc6d279209adbc0fe78cd5af41fdda8338807c731b11210592780ec5f60517fa919b54a0d2de57a9f93c99cefa0e03b4dae2af5b0c8ebbb3c83539961172b047eba77d626e169146355210c7d",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "chacha20_constant",
+      "algo": "ChaCha20",
+      "ascii": "expand 32-byte k",
+      "bytes_hex_le": "657870616e642033322d62797465206b",
+      "size": 16,
+      "description": "ChaCha20 sigma constant occupying the first 4 words of the initial 4x4 state.",
+      "spec_citation": "RFC 7539 §2.3 (The ChaCha20 Block Function — initial state)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc7539",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "salsa20_constant",
+      "algo": "Salsa20",
+      "ascii": "expand 32-byte k",
+      "bytes_hex_le": "657870616e642033322d62797465206b",
+      "size": 16,
+      "description": "Salsa20 32-byte-key sigma constant occupying state words [0,5,10,15] of the 4x4 state matrix.",
+      "spec_citation": "Bernstein, 'The Salsa20 family of stream ciphers' (2008) §2 — sigma constants",
+      "spec_url": "https://cr.yp.to/snuffle/salsafamily-20071225.pdf",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "salsa20_constant_short",
+      "algo": "Salsa20",
+      "ascii": "expand 16-byte k",
+      "bytes_hex_le": "657870616e642031362d62797465206b",
+      "size": 16,
+      "description": "Salsa20 16-byte-key tau constant (short-key variant) used when the key is 128-bit instead of 256-bit.",
+      "spec_citation": "Bernstein, 'The Salsa20 family of stream ciphers' (2008) §2 — tau constants for 128-bit keys",
+      "spec_url": "https://cr.yp.to/snuffle/salsafamily-20071225.pdf",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "blake2b_iv",
+      "algo": "BLAKE2b",
+      "bytes_hex_le": "08c9bcf367e6096a3ba7ca8485ae67bb2bf894fe72f36e3cf1361d5f3af54fa5d182e6ad7f520e511f6c3e2b8c68059b6bbd41fbabd9831f79217e1319cde05b",
+      "size": 64,
+      "description": "BLAKE2b initial chaining values IV[0..1] (first two 64-bit words; identical to SHA-512 IV[0..1]).",
+      "spec_citation": "RFC 7693 §2.6 (BLAKE2 IV)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc7693",
+      "bytes_hex_be": "6a09e667f3bcc908bb67ae8584caa73b3c6ef372fe94f82ba54ff53a5f1d36f1510e527fade682d19b05688c2b3e6c1f1f83d9abfb41bd6b5be0cd19137e2179",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "rsa_pkcs_oid_sha256",
+      "algo": "RSA-PKCS1-v1.5/SHA-256",
+      "bytes_hex_le": "3031300d060960864801650304020105000420",
+      "size": 19,
+      "description": "DigestInfo prefix for RSA-PKCS1 signing with SHA-256 (DER-encoded AlgorithmIdentifier for id-sha256 plus OCTET-STRING tag).",
+      "spec_citation": "RFC 8017 §9.2 (EMSA-PKCS1-v1_5) — Notes on DigestInfo encoding",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc8017",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "wanacry_magic",
+      "algo": "WannaCry",
+      "ascii": "WANACRY!",
+      "bytes_hex_le": "57414e4143525921",
+      "size": 8,
+      "description": "WannaCry encrypted-file header magic; precedes the 4-byte AES-key blob length and the 256-byte RSA-encrypted AES-128 key.",
+      "spec_citation": "Sophos (Secureworks origin) 'wcry-ransomware-analysis' Figure 7-8 — WCry file header prepended to encrypted file. Cross-verified via aguinet/wannakey + gentilkiwi/wanakiwi decryptor source (existence of WCry file header indicator).",
+      "spec_url": "https://www.sophos.com/en-us/research/wcry-ransomware-analysis",
+      "spec_url_secondary": [
+        "https://github.com/aguinet/wannakey",
+        "https://github.com/gentilkiwi/wanakiwi",
+        "https://blog.talosintelligence.com/wannacry/"
+      ],
+      "_verification_note": "L1/L3 K-phase fetch-verify: original logrhythm URL 301-redirected to exabeam homepage (article deleted). Replaced with Sophos analysis (Figure 7-8 WCry file header, page alive). Well-known fact cross-cited by 3 public decryptor implementations.",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "ms_cryptoapi_priv_blob_magic",
+      "algo": "RSA",
+      "ascii": "RSA2",
+      "bytes_hex_le": "52534132",
+      "size": 4,
+      "description": "Microsoft CryptoAPI PRIVATEKEYBLOB magic 'RSA2' (LE 0x32415352) preceding the 8-byte BLOBHEADER's RSA component.",
+      "spec_citation": "Microsoft Learn — 'Base Provider Key BLOBs' (PRIVATEKEYBLOB / PUBLICKEYBLOB structure)",
+      "spec_url": "https://learn.microsoft.com/en-us/windows/win32/seccrypto/base-provider-key-blobs",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "ms_cryptoapi_pub_blob_magic",
+      "algo": "RSA",
+      "ascii": "RSA1",
+      "bytes_hex_le": "52534131",
+      "size": 4,
+      "description": "Microsoft CryptoAPI PUBLICKEYBLOB magic 'RSA1' (LE 0x31415352) inside RSAPUBKEY structure.",
+      "spec_citation": "Microsoft Learn — 'Base Provider Key BLOBs' (PUBLICKEYBLOB structure)",
+      "spec_url": "https://learn.microsoft.com/en-us/windows/win32/seccrypto/base-provider-key-blobs",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "cng_rsa_priv_full",
+      "algo": "RSA",
+      "ascii": "RSA3",
+      "bytes_hex_le": "52534133",
+      "size": 4,
+      "description": "CNG (BCrypt) RSA private full BLOB magic 'RSA3' carrying P, Q, dP, dQ, InvQ in addition to the public components.",
+      "spec_citation": "Microsoft Learn — 'BCRYPT_RSAKEY_BLOB' Magic = BCRYPT_RSAFULLPRIVATE_MAGIC (0x33415352)",
+      "spec_url": "https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_rsakey_blob",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "ecc_priv_p256",
+      "algo": "ECC",
+      "ascii": "ECS2",
+      "bytes_hex_le": "45435332",
+      "size": 4,
+      "description": "CNG (BCrypt) ECDSA P-256 private BLOB magic 'ECS2' = BCRYPT_ECDSA_PRIVATE_P256_MAGIC (0x32534345).",
+      "spec_citation": "Microsoft Learn — 'BCRYPT_ECCKEY_BLOB' Magic field for ECC P-256 private key",
+      "spec_url": "https://learn.microsoft.com/en-us/windows/win32/api/bcrypt/ns-bcrypt-bcrypt_ecckey_blob",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "tea_delta",
+      "algo": "TEA",
+      "bytes_hex_le": "b979379e",
+      "bytes_hex_be": "9e3779b9",
+      "size": 4,
+      "description": "TEA delta = sqrt(5)*2^31 = 0x9E3779B9 — added to round counter every encrypt round (Wheeler-Needham FSE 1994 §3).  Same constant appears in XTEA, XXTEA, Blowfish key-schedule variants.",
+      "spec_citation": "Wheeler & Needham, TEA: Tiny Encryption Algorithm (FSE 1994, Springer LNCS 1008, §3)",
+      "ambiguous": true,
+      "ambiguous_reason": "0x9E3779B9 (golden ratio) is shared by TEA/XTEA/XXTEA/Serpent/RC5/RC6/SEED key-schedule and is also used by many non-crypto hash functions (Fibonacci hashing, splittable_random, etc.); requires family disambiguation before being attributed to a specific cipher.",
+      "recovery_role": "sym_cipher",
+      "disambiguating_round": "crypto.tea_round"
+    },
+    {
+      "name": "aes_rcon",
+      "algo": "AES",
+      "bytes_hex_le": "01020408102040801b366cd8ab4d9a2f5ebc63c697356ad4b37dfaefc591",
+      "size": 30,
+      "description": "AES Rcon (round constants) used in key expansion: 0x01, 0x02, 0x04, 0x08, 0x10, 0x20, 0x40, 0x80, 0x1b, 0x36, ... (xtimes of 1 in GF(2^8) under the Rijndael polynomial). Often stored as a 10-byte table for AES-128 (10 rounds) or longer for AES-256. Extended sequence covers AES-128/192/256 round constants (per Crypto++ AES Tables rcon array). FIPS-197 AES-128 only uses first 10.",
+      "spec_citation": "FIPS-197 §5.2 (Key Expansion), 0x01..0x36 round constants for AES-128 (Rcon[1..10])",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "hmac_ipad",
+      "algo": "HMAC",
+      "bytes_hex_le": "3636363636363636363636363636363636363636363636363636363636363636",
+      "size": 32,
+      "description": "HMAC inner padding constant 0x36 (repeated). Block size depends on hash: 64 B for HMAC-SHA-1/-SHA-256, 128 B for HMAC-SHA-512. Common in KDF chains.",
+      "spec_citation": "RFC 2104 §2 (HMAC)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc2104",
+      "recovery_role": "mac"
+    },
+    {
+      "name": "hmac_opad",
+      "algo": "HMAC",
+      "bytes_hex_le": "5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c5c",
+      "size": 32,
+      "description": "HMAC outer padding constant 0x5c (repeated). Pair with hmac_ipad to confirm HMAC use.",
+      "spec_citation": "RFC 2104 §2 (HMAC)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc2104",
+      "recovery_role": "mac"
+    },
+    {
+      "name": "curve25519_basepoint",
+      "algo": "X25519/Curve25519",
+      "bytes_hex_le": "0900000000000000000000000000000000000000000000000000000000000000",
+      "size": 32,
+      "description": "X25519/Curve25519 base point u-coordinate = 9 (32-byte little-endian). Used as the public key generator in modern RaaS (Conti, BlackCat, Embargo, LockBit 3.0).",
+      "spec_citation": "RFC 7748 §4.1 (X25519)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc7748",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "sha1_iv",
+      "algo": "SHA-1",
+      "bytes_hex_le": "0123456789abcdeffedcba9876543210f0e1d2c3",
+      "size": 20,
+      "description": "SHA-1 initial hash values H0..H4 in big-endian byte order; rare in modern ransomware but appears in legacy CryptoAPI samples. (bytes corrected 2026-05-20: canonical FIPS-180-4 H0..H4).",
+      "spec_citation": "FIPS 180-4 §5.3.1 (SHA-1)",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/FIPS/NIST.FIPS.180-4.pdf",
+      "bytes_hex_be": "67452301efcdab8998badcfe10325476c3d2e1f0",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "lockbit3_magic",
+      "algo": "LockBit",
+      "ascii": "LockBit",
+      "bytes_hex_le": "4c6f636b426974",
+      "size": 7,
+      "description": "LockBit 3.0 (Black) ransom note + signature header tag. Commonly seen in encrypted file footer along with an RSA-2048-wrapped AES-256 file key (Sophos/Trend Micro RE 2022; earlier draft of this description incorrectly cited ChaCha20+Curve25519 — corrected 2026-05-29).",
+      "spec_citation": "TrendMicro/LockBit 3.0 RE — https://www.trendmicro.com/en_us/research/22/k/lockbit-3-0-black-attacks-and-leaks-reveal-wormable-capabilities-a.html",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "conti_chacha8_constant",
+      "algo": "ChaCha8",
+      "ascii": "expand 32-byte k",
+      "bytes_hex_le": "657870616e642033322d62797465206b",
+      "size": 16,
+      "description": "Conti uses ChaCha8 (8-round variant) with the same expand-32 constant as ChaCha20.  Distinguishing factor is the loop count; the constant alone matches both.  Pair detection with quarter-round count (8 vs 20).",
+      "spec_citation": "Bernstein, ChaCha (2008) — Conti CTI: SophosLabs Uncut, Sep 2021",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "sha224_iv",
+      "algo": "SHA-224",
+      "bytes_hex_le": "d89e05c107d57c3617dd703039590ef7310bc0ff11155868a78ff964a44ffabe",
+      "size": 32,
+      "description": "SHA-224 initial hash values H0..H7 (FIPS-180-4)",
+      "spec_citation": "NIST FIPS 180-4 Sec 5.3.2 (SHA-224 initial hash values H0..H7)",
+      "bytes_hex_be": "c1059ed8367cd5073070dd17f70e5939ffc00b316858151164f98fa7befa4fa4",
+      "_note": "Regenerated from NIST FIPS 180-4 canonical values on 2026-06-03 (prior catalog had size/hex length mismatch)",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "sha384_iv",
+      "algo": "SHA-384",
+      "bytes_hex_le": "d89e05c15d9dbbcb07d57c362a299a6217dd70305a01599139590ef7d8ec2f15310bc0ff6726336711155868874ab48ea78ff9640d2e0cdba44ffabe1d48b547",
+      "size": 64,
+      "description": "SHA-384 initial hash values H0..H7 per FIPS-180-4 §5.3.4.",
+      "spec_citation": "FIPS-180-4 §5.3.4",
+      "bytes_hex_be": "cbbb9d5dc1059ed8629a292a367cd5079159015a3070dd17152fecd8f70e593967332667ffc00b318eb44a8768581511db0c2e0d64f98fa747b5481dbefa4fa4",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "sha256_k_first16",
+      "algo": "SHA-256",
+      "bytes_hex_le": "982f8a4291443771cffbc0b5a5dbb5e9",
+      "size": 16,
+      "description": "First 4 round constants K[0..3] of SHA-256",
+      "spec_citation": "NIST FIPS 180-4 Sec 4.2.2 (SHA-256 round constants K0..K3)",
+      "bytes_hex_be": "428a2f9871374491b5c0fbcfe9b5dba5",
+      "_note": "Regenerated from NIST FIPS 180-4 canonical values on 2026-06-03 (prior catalog had size/hex length mismatch)",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "md5_t_first16",
+      "algo": "MD5",
+      "bytes_hex_le": "78a46ad756b7c7e8db702024eecebdc1",
+      "size": 16,
+      "description": "First 4 T[i] constants of MD5 (RFC-1321)",
+      "spec_citation": "RFC-1321",
+      "bytes_hex_be": "d76aa478e8c7b756242070dbc1bdceee",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "ripemd160_iv",
+      "algo": "RIPEMD-160",
+      "bytes_hex_le": "0123456789abcdeffedcba9876543210f0e1d2c3",
+      "size": 20,
+      "description": "RIPEMD-160 initial hash values",
+      "spec_citation": "RIPEMD-160-public-spec",
+      "bytes_hex_be": "67452301efcdab8998badcfe10325476c3d2e1f0",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "blake2s_iv",
+      "algo": "BLAKE2s",
+      "bytes_hex_le": "67e6096a85ae67bb72f36e3c3af54fa57f520e518c68059babd9831f19cde05b",
+      "size": 32,
+      "description": "BLAKE2s initial vector (RFC-7693)",
+      "spec_citation": "RFC-7693",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "keccak_round_constant_0",
+      "algo": "Keccak/SHA-3",
+      "bytes_hex_le": "0100000000000000",
+      "size": 8,
+      "description": "First Keccak-f round constant RC[0] (FIPS-202)",
+      "spec_citation": "FIPS-202",
+      "recovery_role": "hash"
+    },
+    {
+      "name": "aes_rcon_first9",
+      "algo": "AES",
+      "bytes_hex_le": "01020408102040801b",
+      "size": 9,
+      "description": "AES key-schedule round constants Rcon[1..9]",
+      "spec_citation": "FIPS-197",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aes_te0_first16",
+      "algo": "AES",
+      "bytes_hex_le": "a56363c6847c7cf8997777ee8d7b7bf6",
+      "size": 16,
+      "description": "First 4 entries of T-table Te0 used by table-driven AES (Rijndael reference).",
+      "spec_citation": "Daemen-Rijmen Rijndael 2002 §3.4 / OpenSSL aes_core.c Te0[0..3]",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aes_td0_first16",
+      "algo": "AES",
+      "bytes_hex_le": "50a7f4515365417ec3a4171a965e273a",
+      "size": 16,
+      "description": "First 4 entries of inverse T-table Td0 (Rijndael reference).",
+      "spec_citation": "Daemen-Rijmen Rijndael 2002 §3.5 / OpenSSL aes_core.c Td0[0..3]",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "twofish_q0_first16",
+      "algo": "Twofish",
+      "bytes_hex_le": "a967b3e804fda3769a928078e4ddd138",
+      "size": 16,
+      "description": "First 16 bytes of Twofish q0 permutation table per Schneier reference C TABLE.H P8x8[0][0..15].",
+      "spec_citation": "Schneier-Twofish-reference-C TABLE.H P8x8[0]",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "twofish_q1_first16",
+      "algo": "Twofish",
+      "bytes_hex_le": "75f3c6f4db7bfbc84ad3e66b457de84b",
+      "size": 16,
+      "description": "First 16 bytes of Twofish q1 permutation table per Schneier reference C TABLE.H P8x8[1][0..15].",
+      "spec_citation": "Schneier-Twofish-reference-C TABLE.H P8x8[1]",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "serpent_phi_constant",
+      "algo": "Serpent",
+      "bytes_hex_le": "b979379e",
+      "size": 4,
+      "description": "Serpent key-schedule golden ratio constant 0x9E3779B9 (little-endian)",
+      "spec_citation": "Serpent-public-spec",
+      "ambiguous": true,
+      "ambiguous_reason": "0x9E3779B9 golden-ratio word is shared with TEA, XTEA, RC5, RC6, SEED, Twofish, Boost hash_combine, LZ4, xxhash, and Java/JVM hashing. Single hit cannot uniquely attribute Serpent; family disambiguation required.",
+      "bytes_hex_be": "9e3779b9",
+      "recovery_role": "sym_cipher",
+      "disambiguating_round": null
+    },
+    {
+      "name": "blowfish_p_first16",
+      "algo": "Blowfish",
+      "bytes_hex_le": "886a3f24d308a3852e8a191344737003",
+      "size": 16,
+      "description": "First 4 entries of Blowfish P-array (digits of pi)",
+      "spec_citation": "Blowfish-public-spec",
+      "bytes_hex_be": "243f6a8885a308d313198a2e03707344",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "des_sbox_s1_first16",
+      "algo": "DES",
+      "bytes_hex_le": "0e040d01020f0b08030a060c05090007",
+      "size": 16,
+      "description": "DES S-box S1 row 0 (16 four-bit outputs, one byte each) per FIPS-46-3",
+      "spec_citation": "FIPS-46-3",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "rc5_p32",
+      "algo": "RC5",
+      "bytes_hex_le": "6351e1b7",
+      "size": 4,
+      "description": "RC5 magic constant P32 = 0xB7E15163 (little-endian)",
+      "spec_citation": "RC5-public-spec",
+      "bytes_hex_be": "b7e15163",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "rc5_q32",
+      "algo": "RC5",
+      "bytes_hex_le": "b979379e",
+      "size": 4,
+      "description": "RC5 magic constant Q32 = 0x9E3779B9 (little-endian)",
+      "spec_citation": "RC5-public-spec",
+      "ambiguous": true,
+      "ambiguous_reason": "0x9E3779B9 shared with TEA/XTEA/Serpent/RC6/SEED key-schedule; family disambiguation required.",
+      "recovery_role": "sym_cipher",
+      "disambiguating_round": null
+    },
+    {
+      "name": "rc6_p32",
+      "algo": "RC6",
+      "bytes_hex_le": "6351e1b7",
+      "size": 4,
+      "description": "RC6 magic constant P32 = 0xB7E15163 = Odd((e-2)*2^32). Identical to RC5 P32 by design (Rivest-Robshaw-Sidney-Yin 1998 reused RC5 key-expansion). Widely used by RC6 ransomware variants.",
+      "spec_citation": "RFC 2040 §5.1 (RC5 spec defines Pw=Odd((e-2)*2^w); RC6 spec [Rivest-Robshaw-Sidney-Yin 1998] reuses identical RC5 key-expansion constants)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc2040",
+      "spec_url_secondary": [
+        "https://en.wikipedia.org/wiki/RC5",
+        "https://people.csail.mit.edu/rivest/pubs/RRSY98.pdf"
+      ],
+      "bytes_hex_be": "b7e15163",
+      "_secondary_source": "Added Wikipedia RC5 (alive, directly quotes Pw=Odd((e-2)*2^w) formula) + RSA Labs RRSY98 RC6 paper PDF (Rivest et al 1998) as secondary corroborating sources.",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "rc6_q32",
+      "algo": "RC6",
+      "bytes_hex_le": "b979379e",
+      "size": 4,
+      "description": "RC6 magic constant Q32 = 0x9E3779B9 = Odd((phi-1)*2^32). Identical to RC5 Q32 by design (Rivest-Robshaw-Sidney-Yin 1998 reused RC5 key-expansion).",
+      "spec_citation": "RFC 2040 §5.1 (RC5 spec defines Qw=Odd((phi-1)*2^w); RC6 spec [Rivest-Robshaw-Sidney-Yin 1998] reuses identical RC5 key-expansion constants)",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc2040",
+      "spec_url_secondary": [
+        "https://en.wikipedia.org/wiki/RC5",
+        "https://people.csail.mit.edu/rivest/pubs/RRSY98.pdf"
+      ],
+      "ambiguous": true,
+      "ambiguous_reason": "0x9E3779B9 shared with TEA/XTEA/Serpent/RC5/SEED key-schedule; family disambiguation required.",
+      "recovery_role": "sym_cipher",
+      "disambiguating_round": null
+    },
+    {
+      "name": "skipjack_F_first16",
+      "algo": "Skipjack",
+      "bytes_hex_le": "a3d70983f848f6f4b321157899b1aff9",
+      "size": 16,
+      "description": "First 16 bytes of Skipjack F-table",
+      "spec_citation": "NIST-Skipjack-public-spec",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "camellia_sigma1",
+      "algo": "Camellia",
+      "bytes_hex_le": "a09e667f3bcc908b",
+      "size": 8,
+      "description": "Camellia key-schedule constant Sigma1",
+      "spec_citation": "RFC-3713",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "camellia_sigma2",
+      "algo": "Camellia",
+      "bytes_hex_le": "b67ae8584caa73b2",
+      "size": 8,
+      "description": "Camellia key-schedule constant Sigma2",
+      "spec_citation": "RFC-3713",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aria_C1",
+      "algo": "ARIA",
+      "bytes_hex_le": "517cc1b727220a94fe13abe8fa9a6ee0",
+      "size": 16,
+      "description": "ARIA round constant C1",
+      "spec_citation": "RFC-5794",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "seed_kc1",
+      "algo": "SEED",
+      "bytes_hex_le": "73f36e3c",
+      "size": 4,
+      "description": "SEED key-schedule constant KC1 (= KC0 rotated left 1 bit; KC0 is the golden-ratio 0x9E3779B9)",
+      "spec_citation": "SEED-public-spec",
+      "ambiguous": true,
+      "ambiguous_reason": "0x9E3779B9 is the golden-ratio constant shared by TEA/XTEA/Serpent/RC5/RC6/SEED key-schedule and Fibonacci hashing; family disambiguation required.",
+      "bytes_hex_be": "3c6ef373",
+      "recovery_role": "sym_cipher",
+      "disambiguating_round": null
+    },
+    {
+      "name": "poly1305_clamp_mask",
+      "algo": "Poly1305",
+      "bytes_hex_le": "ffffff0ffcffff0ffcffff0ffcffff0f",
+      "size": 16,
+      "description": "Poly1305 r-value clamping mask (RFC-7539): 0x0ffffffc 0x0fffffff x3 packed",
+      "spec_citation": "RFC-7539",
+      "recovery_role": "mac"
+    },
+    {
+      "name": "chacha20_constant_le_split",
+      "algo": "ChaCha20",
+      "bytes_hex_le": "61707865 3320646e 79622d32 6b206574",
+      "size": 16,
+      "description": "ChaCha20/Salsa20 constants as four 32-bit little-endian words: 'expa','nd 3','2-by','te k'",
+      "spec_citation": "RFC-7539",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "tweetnacl_curve25519_d",
+      "algo": "Curve25519",
+      "bytes_hex_le": "a3785913ca4deb75abd841414d0a700098e879777940c78c73fe6f2bee6c0352",
+      "size": 32,
+      "description": "Edwards curve d constant used by Ed25519/Curve25519 (TweetNaCl-style)",
+      "spec_citation": "RFC-8032",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "x25519_basepoint",
+      "algo": "X25519",
+      "bytes_hex_le": "0900000000000000000000000000000000000000000000000000000000000000",
+      "size": 32,
+      "description": "X25519 base point u-coordinate (=9), tell-tale constant for X25519",
+      "spec_citation": "RFC-7748",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "ed25519_basepoint_y",
+      "algo": "Ed25519",
+      "bytes_hex_le": "5866666666666666666666666666666666666666666666666666666666666666",
+      "size": 32,
+      "description": "Ed25519 base point y-coordinate encoded (4/5 mod p)",
+      "spec_citation": "RFC-8032",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "secp256k1_p",
+      "algo": "ECC-secp256k1",
+      "bytes_hex_le": "2ffcfffffeffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+      "size": 32,
+      "description": "secp256k1 field prime p",
+      "spec_citation": "SEC2-public-spec",
+      "bytes_hex_be": "fffffffffffffffffffffffffffffffffffffffffffffffffffffffefffffc2f",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "secp256k1_n",
+      "algo": "ECC-secp256k1",
+      "bytes_hex_le": "414136d08c5ed2bf3ba048afe6dcaebafeffffffffffffffffffffffffffffff",
+      "size": 32,
+      "description": "secp256k1 group order n",
+      "spec_citation": "SEC2-public-spec",
+      "bytes_hex_be": "fffffffffffffffffffffffffffffffebaaedce6af48a03bbfd25e8cd0364141",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "p256_p",
+      "algo": "ECC-P-256",
+      "bytes_hex_le": "ffffffffffffffffffffffff00000000000000000000000001000000ffffffff",
+      "size": 32,
+      "description": "NIST P-256 (secp256r1) field prime p",
+      "spec_citation": "FIPS-186-4",
+      "bytes_hex_be": "ffffffff00000001000000000000000000000000ffffffffffffffffffffffff",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "p256_n",
+      "algo": "ECC-P-256",
+      "bytes_hex_le": "512563fcc2cab9f3849e17a7adfae6bcffffffffffffffff00000000ffffffff",
+      "size": 32,
+      "description": "NIST P-256 (secp256r1) group order n",
+      "spec_citation": "FIPS-186-4",
+      "bytes_hex_be": "ffffffff00000000ffffffffffffffffbce6faada7179e84f3b9cac2fc632551",
+      "recovery_role": "asym_curve_const"
+    },
+    {
+      "name": "rsa_pkcs_oid_sha1",
+      "algo": "RSA-PKCS1-v1.5/SHA-1",
+      "bytes_hex_le": "3021300906052b0e03021a05000414",
+      "size": 15,
+      "description": "DigestInfo prefix for RSA-PKCS1 signing with SHA-1",
+      "spec_citation": "RFC-3447",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "rsa_pkcs_oid_md5",
+      "algo": "RSA-PKCS1-v1.5/MD5",
+      "bytes_hex_le": "3020300c06082a864886f70d020505000410",
+      "size": 18,
+      "description": "DigestInfo prefix for RSA-PKCS1 signing with MD5",
+      "spec_citation": "RFC-3447",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "rsa_pkcs_oid_sha384",
+      "algo": "RSA-PKCS1-v1.5/SHA-384",
+      "bytes_hex_le": "3041300d060960864801650304020205000430",
+      "size": 19,
+      "description": "DigestInfo prefix for RSA-PKCS1 signing with SHA-384",
+      "spec_citation": "RFC 8017 §9.2 (EMSA-PKCS1-v1_5) - DigestInfo encoding for id-sha384",
+      "spec_url": "https://datatracker.ietf.org/doc/html/rfc8017",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "rsa_pkcs_oid_sha512",
+      "algo": "RSA-PKCS1-v1.5/SHA-512",
+      "bytes_hex_le": "3051300d060960864801650304020305000440",
+      "size": 19,
+      "description": "DigestInfo prefix for RSA-PKCS1 signing with SHA-512",
+      "spec_citation": "RFC-3447",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "der_seq_marker_rsa_pub",
+      "algo": "RSA",
+      "bytes_hex_le": "3082010a0282010100",
+      "size": 9,
+      "description": "Common DER prefix for SubjectPublicKeyInfo body of RSA-2048 modulus",
+      "spec_citation": "RFC-5280",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "pem_rsa_priv_header",
+      "algo": "RSA",
+      "ascii": "-----BEGIN RSA PRIVATE KEY-----",
+      "bytes_hex_le": "2d2d2d2d2d424547494e205253412050524956415445204b45592d2d2d2d2d",
+      "size": 31,
+      "spec_citation": "OpenSSL legacy PEM (no formal IETF RFC); underlying ASN.1 = PKCS#1 RSAPrivateKey per RFC 8017 §A.1.2",
+      "description": "PEM header for legacy OpenSSL 'RSA PRIVATE KEY' (PKCS#1) format.",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "pem_rsa_pub_header",
+      "algo": "RSA",
+      "ascii": "-----BEGIN PUBLIC KEY-----",
+      "bytes_hex_le": "2d2d2d2d2d424547494e205055424c4943204b45592d2d2d2d2d",
+      "size": 26,
+      "spec_citation": "PEM-public-spec",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "pem_ec_priv_header",
+      "algo": "ECC",
+      "ascii": "-----BEGIN EC PRIVATE KEY-----",
+      "bytes_hex_le": "2d2d2d2d2d424547494e2045432050524956415445204b45592d2d2d2d2d",
+      "size": 30,
+      "spec_citation": "PEM-public-spec",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "ssh_ed25519_marker",
+      "algo": "Ed25519",
+      "ascii": "ssh-ed25519",
+      "bytes_hex_le": "7373682d65643235353139",
+      "size": 11,
+      "spec_citation": "OpenSSH-public-spec",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "cng_ecc_pub_p256_magic",
+      "algo": "ECC-P-256",
+      "ascii": "ECK1",
+      "bytes_hex_le": "45434b31",
+      "size": 4,
+      "description": "BCRYPT_ECDH_PUBLIC_P256_MAGIC ('ECK1')",
+      "spec_citation": "Microsoft-CNG-public-API",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "cng_ecc_priv_p256_magic",
+      "algo": "ECC-P-256",
+      "ascii": "ECK2",
+      "bytes_hex_le": "45434b32",
+      "size": 4,
+      "description": "BCRYPT_ECDH_PRIVATE_P256_MAGIC ('ECK2')",
+      "spec_citation": "Microsoft-CNG-public-API",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "cng_ecdsa_pub_p256_magic",
+      "algo": "ECC-P-256",
+      "ascii": "ECS1",
+      "bytes_hex_le": "45435331",
+      "size": 4,
+      "description": "BCRYPT_ECDSA_PUBLIC_P256_MAGIC ('ECS1')",
+      "spec_citation": "Microsoft-CNG-public-API",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "cng_ecdh_pub_p384_magic",
+      "algo": "ECC-P-384",
+      "ascii": "ECK3",
+      "bytes_hex_le": "45434b33",
+      "size": 4,
+      "description": "BCRYPT_ECDH_PUBLIC_P384_MAGIC ('ECK3')",
+      "spec_citation": "Microsoft-CNG-public-API",
+      "bytes_hex_be": "334b4345",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "cng_ecdh_pub_p521_magic",
+      "algo": "ECC-P-521",
+      "ascii": "ECK5",
+      "bytes_hex_le": "45434b35",
+      "size": 4,
+      "description": "BCRYPT_ECDH_PUBLIC_P521_MAGIC ('ECK5')",
+      "spec_citation": "Microsoft-CNG-public-API",
+      "bytes_hex_be": "354b4345",
+      "recovery_role": "asym_pubkey"
+    },
+    {
+      "name": "lockbit_3_marker",
+      "algo": "Misc",
+      "ascii": "LockBit",
+      "bytes_hex_le": "4c6f636b426974",
+      "size": 7,
+      "description": "Common ransom-note string marker for LockBit family",
+      "spec_citation": "Public-RE-reports-LockBit",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "babuk_marker",
+      "algo": "Misc",
+      "ascii": "choung dong looks like hot dog!!",
+      "bytes_hex_le": "63686f756e6720646f6e67206c6f6f6b73206c696b6520686f7420646f672121",
+      "size": 32,
+      "description": "Babuk encrypted-file footer/header marker (32 bytes; added trailing '!' so marker ends '...dog!!' per canonical Babuk samples; prior 31-byte form ended in single '!').",
+      "spec_citation": "Public-RE-Babuk",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "ryuk_marker",
+      "algo": "Misc",
+      "ascii": "HERMES",
+      "bytes_hex_le": "4845524d4553",
+      "size": 6,
+      "description": "Hermes/Ryuk encrypted-file marker (Ryuk is Hermes-derived)",
+      "spec_citation": "Public-RE-Ryuk-Hermes",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "petya_verification_fill",
+      "algo": "Misc",
+      "ascii": null,
+      "bytes_hex_le": "37373737373737373737373737373737",
+      "size": 16,
+      "description": "Petya verification block is 0x37-filled (per Kaspersky Securelist Petya analysis).",
+      "spec_citation": "Kaspersky-Securelist-Petya-2-in-1-trojan",
+      "ambiguous": true,
+      "ambiguous_reason": "0x37-repeat pattern is low-specificity; only meaningful when found at MBR sector 55 offset with surrounding Petya disk layout.",
+      "recovery_role": "family_marker",
+      "disambiguating_round": null
+    },
+    {
+      "name": "stop_djvu_salt",
+      "algo": "Salsa20",
+      "ascii": "{36A698B9-D67C-4E07-BE82-0EC5B14B4DF5}",
+      "bytes_hex_le": "7b33364136393842392d",
+      "size": 10,
+      "description": "STOP/Djvu hardcoded salt-like GUID prefix used in offline-key fallback",
+      "spec_citation": "Public-RE-Stop-Djvu (Emsisoft)",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "wannacry_dll_marker",
+      "algo": "Misc",
+      "ascii": "tasksche.exe",
+      "bytes_hex_le": "7461736b736368652e657865",
+      "size": 12,
+      "spec_citation": "Public-RE-WannaCry",
+      "recovery_role": "family_marker"
+    },
+    {
+      "name": "7z_aes_signature",
+      "algo": "AES-256 (7-Zip)",
+      "ascii": "7z",
+      "bytes_hex_le": "377abcaf271c",
+      "size": 6,
+      "description": "7-Zip archive magic; combined with AES-256 header property 0x06F10701 indicates 7zAES",
+      "spec_citation": "7-Zip-public-format-spec",
+      "recovery_role": "format"
+    },
+    {
+      "name": "7z_aes_property_id",
+      "algo": "AES-256 (7-Zip)",
+      "bytes_hex_le": "06f10701",
+      "size": 4,
+      "description": "7-Zip method-ID for AES-256-SHA256 (7zAES)",
+      "spec_citation": "7-Zip-public-format-spec",
+      "recovery_role": "format"
+    },
+    {
+      "name": "kuznyechik_pi_first16",
+      "algo": "Kuznyechik (GOST R 34.12-2015)",
+      "bytes_hex_le": "fceedd11cf6e3116fbc4fada23c5044d",
+      "size": 16,
+      "description": "First 16 bytes of GOST Kuznyechik nonlinear S-box (some EU/RU samples)",
+      "spec_citation": "GOST-R-34.12-2015-public-spec",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "argon2_blake2b_init",
+      "algo": "Argon2",
+      "bytes_hex_le": "08c9bcf367e6096a3ba7ca8485ae67bb",
+      "size": 16,
+      "description": "Argon2 reuses BLAKE2b IV; presence + Argon2 string indicates Argon2 KDF",
+      "spec_citation": "RFC-9106",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "scrypt_blockmix_constant",
+      "algo": "scrypt",
+      "ascii": "scrypt",
+      "bytes_hex_le": "73637279707400",
+      "size": 7,
+      "description": "scrypt context label string; appears in some libraries' KDF context",
+      "spec_citation": "RFC-7914",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "pbkdf2_label_default",
+      "algo": "PBKDF2",
+      "ascii": "PBKDF2",
+      "bytes_hex_le": "50424b44463200",
+      "size": 7,
+      "description": "PBKDF2 label string (some implementations include this in context)",
+      "spec_citation": "RFC-2898",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_salted_magic",
+      "algo": "OpenSSL EVP_BytesToKey",
+      "ascii": "Salted__",
+      "bytes_hex_le": "53616c7465645f5f",
+      "size": 8,
+      "description": "OpenSSL CLI 'enc' container magic; often appears in malware that wraps with `openssl enc`",
+      "spec_citation": "OpenSSL-public-spec",
+      "recovery_role": "format"
+    },
+    {
+      "name": "ssh_aes256_ctr_marker",
+      "algo": "AES-256-CTR",
+      "ascii": "aes256-ctr",
+      "bytes_hex_le": "6165733235362d637472",
+      "size": 10,
+      "description": "Cipher-name marker present in OpenSSH-style key blobs",
+      "spec_citation": "OpenSSH-public-spec",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_des",
+      "algo": "DES",
+      "bytes_hex_le": "01660000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI ALG_ID CALG_DES = 0x6601 (LE: 01 66 00 00).",
+      "spec_citation": "Microsoft-WinCrypt CALG_DES",
+      "bytes_hex_be": "00006601",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_aes_128",
+      "algo": "AES-128",
+      "bytes_hex_le": "0e660000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_AES_128 = 0x660E (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_aes_192",
+      "algo": "AES-192",
+      "bytes_hex_le": "0f660000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_AES_192 = 0x660F (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_aes_256",
+      "algo": "AES-256",
+      "bytes_hex_le": "10660000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_AES_256 = 0x6610 (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_rc4",
+      "algo": "RC4",
+      "bytes_hex_le": "01680000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_RC4 = 0x6801 (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_rsa_keyx",
+      "algo": "RSA",
+      "bytes_hex_le": "00a40000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_RSA_KEYX = 0xA400 (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "calg_rsa_sign",
+      "algo": "RSA",
+      "bytes_hex_le": "00240000",
+      "size": 4,
+      "description": "Microsoft CryptoAPI CALG_RSA_SIGN = 0x2400 (little-endian)",
+      "spec_citation": "Microsoft-WinCrypt-public-API",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "salsa20_constant_tau",
+      "algo": "Salsa20",
+      "ascii": "expand 16-byte k",
+      "bytes_hex_le": "657870616e642031362d62797465206b",
+      "size": 16,
+      "description": "Salsa20 'tau' constant for 128-bit keys (already in baseline; included for completeness with explicit name)",
+      "spec_citation": "RFC-public-Salsa20-spec",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aes_sbox_first16",
+      "algo": "AES",
+      "bytes_hex_le": "637c777bf26b6fc53001672bfed7ab76",
+      "size": 16,
+      "description": "AES forward S-box (SubBytes) first 16 bytes -- row 0 of the substitution table.  Distinct from aes_invsbox_first16 which is the inverse S-box used for AES decryption.",
+      "spec_citation": "FIPS-197 Section 5.1.1 Figure 7",
+      "spec_url": "https://nvlpubs.nist.gov/nistpubs/fips/nist.fips.197.pdf",
+      "last_verified": "2026-05-05",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "aes_invsbox_first16",
+      "algo": "AES",
+      "bytes_hex_le": "52096ad53036a538bf40a39e81f3d7fb",
+      "size": 16,
+      "description": "AES inverse S-box (Rijndael InvSubBytes table) first 16 bytes. Distinct from Td0 (T-table); appears in byte-by-byte AES decryption code that does not use AES-NI or T-tables (typical fallback paths in OpenSSL no-AESNI builds, mbedTLS legacy, hand-rolled implementations).",
+      "spec_citation": "FIPS-197 Section 5.3.2 (InvSubBytes)",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "ms_cryptoapi_privatekeyblob_rsa1024_header",
+      "algo": "RSA",
+      "bytes_hex_le": "0702000000a40000",
+      "size": 8,
+      "description": "MS CryptoAPI PUBLICKEYSTRUC + RSAPUBKEY header prefix for a PRIVATEKEYBLOB exporting an RSA-1024 keyx key. bType=0x07 (PRIVATEKEYBLOB), bVersion=0x02, reserved=0x0000, aiKeyAlg=CALG_RSA_KEYX (0x0000A400 LE). Found at offset 0 of any blob produced by CryptExportKey(PRIVATEKEYBLOB, ...) for a CALG_RSA_KEYX key.",
+      "spec_citation": "Microsoft wincrypt.h / PUBLICKEYSTRUC documentation",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "cng_bcrypt_rsaprivate_blob_magic",
+      "algo": "RSA",
+      "ascii": "RSA2",
+      "bytes_hex_le": "52534132",
+      "size": 4,
+      "description": "CNG BCRYPT_RSAPRIVATE_BLOB magic ('RSA2'). First 4 bytes of any blob produced by BCryptExportKey with the BCRYPT_RSAPRIVATE_BLOB type. Distinguishes from BCRYPT_RSAFULLPRIVATE_BLOB (RSA3) by the absence of CRT parameters (P, Q, dP, dQ, InvQ).",
+      "spec_citation": "Microsoft bcrypt.h (BCRYPT_RSAPRIVATE_MAGIC)",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "cng_bcrypt_rsafullprivate_blob_magic",
+      "algo": "RSA",
+      "ascii": "RSA3",
+      "bytes_hex_le": "52534133",
+      "size": 4,
+      "description": "CNG BCRYPT_RSAFULLPRIVATE_BLOB magic ('RSA3'). Full RSA private key including CRT parameters; produced when an attacker exports a key with BCRYPT_RSAFULLPRIVATE_BLOB. Sufficient for direct decryption (no need to reconstruct CRT params).",
+      "spec_citation": "Microsoft bcrypt.h (BCRYPT_RSAFULLPRIVATE_MAGIC)",
+      "recovery_role": "asym_privkey"
+    },
+    {
+      "name": "salsa20_constant_sigma",
+      "algo": "Salsa20",
+      "ascii": "expand 32-byte k",
+      "bytes_hex_le": "657870616e642033322d62797465206b",
+      "size": 16,
+      "description": "Salsa20 'sigma' constant for 256-bit keys (the 32-byte-key variant - more common than tau in modern code; used by WannaCry's secondary cipher path, EKANS/Snake, several Conti forks).",
+      "spec_citation": "RFC-public-Salsa20-spec (Bernstein 2008)",
+      "recovery_role": "sym_cipher"
+    },
+    {
+      "name": "bcrypt_aes_algorithm_utf16",
+      "algo": "AES",
+      "ascii": "AES (UTF-16LE, null-terminated)",
+      "bytes_hex_le": "4100450053000000",
+      "size": 8,
+      "description": "BCRYPT_AES_ALGORITHM identifier as a UTF-16LE null-terminated wide string. Passed to BCryptOpenAlgorithmProvider(... L\"AES\" ...). Found in .rdata of every binary that uses CNG AES through the documented API path. Strong indicator of CNG-based AES use even when the API itself is statically resolved.",
+      "spec_citation": "Microsoft bcrypt.h (BCRYPT_AES_ALGORITHM L\"AES\")",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "bcrypt_rsa_algorithm_utf16",
+      "algo": "RSA",
+      "ascii": "RSA (UTF-16LE, null-terminated)",
+      "bytes_hex_le": "5200530041000000",
+      "size": 8,
+      "description": "BCRYPT_RSA_ALGORITHM identifier as a UTF-16LE null-terminated wide string. Passed to BCryptOpenAlgorithmProvider(... L\"RSA\" ...). Same role as bcrypt_aes_algorithm_utf16 but for RSA.",
+      "spec_citation": "Microsoft bcrypt.h (BCRYPT_RSA_ALGORITHM L\"RSA\")",
+      "recovery_role": "algo_id"
+    },
+    {
+      "name": "openssl_rsa_no_padding",
+      "algo": "RSA",
+      "bytes_hex_le": "03000000",
+      "size": 4,
+      "description": "OpenSSL RSA_NO_PADDING = 3. No padding (raw RSA — sometimes used by malware)",
+      "spec_citation": "OpenSSL rsa.h public header",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "openssl_rsa_pkcs1_oaep_padding",
+      "algo": "RSA",
+      "bytes_hex_le": "04000000",
+      "size": 4,
+      "description": "OpenSSL RSA_PKCS1_OAEP_PADDING = 4. OAEP padding (HOT — modern ransomware)",
+      "spec_citation": "OpenSSL rsa.h public header",
+      "ambiguous": true,
+      "ambiguous_reason": "4-byte LE 0x04000000 is just integer=4 and matches any program that stores int=4 in memory; must be corroborated by RSA modulus length or OpenSSL EVP_PKEY_CTX_set_rsa_padding API trace before counting as smoking gun.",
+      "recovery_role": "asym_padding",
+      "disambiguating_round": null
+    },
+    {
+      "name": "openssl_rsa_x931_padding",
+      "algo": "RSA",
+      "bytes_hex_le": "05000000",
+      "size": 4,
+      "description": "OpenSSL RSA_X931_PADDING = 5. X9.31 padding",
+      "spec_citation": "OpenSSL rsa.h public header",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "openssl_rsa_pkcs1_pss_padding",
+      "algo": "RSA",
+      "bytes_hex_le": "06000000",
+      "size": 4,
+      "description": "OpenSSL RSA_PKCS1_PSS_PADDING = 6. PSS padding",
+      "spec_citation": "OpenSSL rsa.h public header",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "openssl_rsa_pkcs1_with_tls_padding",
+      "algo": "RSA",
+      "bytes_hex_le": "07000000",
+      "size": 4,
+      "description": "OpenSSL RSA_PKCS1_WITH_TLS_PADDING = 7. PKCS#1 with TLS-style padding (constant-time)",
+      "spec_citation": "OpenSSL rsa.h public header",
+      "recovery_role": "asym_padding"
+    },
+    {
+      "name": "openssl_kdf_fetch_pbkdf2",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "PBKDF2",
+      "bytes_hex_le": "50424b444632",
+      "size": 6,
+      "description": "String passed to EVP_KDF_fetch(\"PBKDF2\"). PKCS#5 PBKDF2 — pass to EVP_KDF_fetch (HOT — password-based ransomware)",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_scrypt",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "SCRYPT",
+      "bytes_hex_le": "534352595054",
+      "size": 6,
+      "description": "String passed to EVP_KDF_fetch(\"SCRYPT\"). scrypt — pass to EVP_KDF_fetch",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_hkdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "HKDF",
+      "bytes_hex_le": "484b4446",
+      "size": 4,
+      "description": "String passed to EVP_KDF_fetch(\"HKDF\"). HKDF (RFC 5869) — pass to EVP_KDF_fetch",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_tls1_prf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "TLS1-PRF",
+      "bytes_hex_le": "544c53312d505246",
+      "size": 8,
+      "description": "String passed to EVP_KDF_fetch(\"TLS1-PRF\"). TLS 1.0/1.1 PRF",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_kbkdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "KBKDF",
+      "bytes_hex_le": "4b424b4446",
+      "size": 5,
+      "description": "String passed to EVP_KDF_fetch(\"KBKDF\"). SP800-108 KBKDF",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_krb5kdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "KRB5KDF",
+      "bytes_hex_le": "4b5242354b4446",
+      "size": 7,
+      "description": "String passed to EVP_KDF_fetch(\"KRB5KDF\"). Kerberos 5 KDF",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_x942kdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "X942KDF",
+      "bytes_hex_le": "583934324b4446",
+      "size": 7,
+      "description": "String passed to EVP_KDF_fetch(\"X942KDF\"). X9.42 KDF",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_x963kdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "X963KDF",
+      "bytes_hex_le": "583936334b4446",
+      "size": 7,
+      "description": "String passed to EVP_KDF_fetch(\"X963KDF\"). X9.63 KDF (used after ECDH)",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_sshkdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "SSHKDF",
+      "bytes_hex_le": "5353484b4446",
+      "size": 6,
+      "description": "String passed to EVP_KDF_fetch(\"SSHKDF\"). SSH KDF",
+      "spec_citation": "OpenSSL kdf.h public header",
+      "recovery_role": "kdf"
+    },
+    {
+      "name": "openssl_kdf_fetch_sskdf",
+      "algo": "OpenSSL EVP_KDF",
+      "ascii": "SSKDF",
+      "bytes_hex_le": "53534b4446",
+      "size": 5,
+      "description": "String passed to EVP_KDF_fetch(\"SSKDF\"). SP800-56C single-step (SSKDF).",
+      "spec_citation": "OpenSSL EVP_KDF-SS(7) man page (https://docs.openssl.org/master/man7/EVP_KDF-SS/); NIST SP 800-56C Rev 2",
+      "recovery_role": "kdf"
+    }
+  ],
+  "self_prng_indicators": [
+    {
+      "name": "rdtsc_seed",
+      "type": "instruction",
+      "pattern": "rdtsc",
+      "context": "Read time-stamp counter; used as PRNG seed by Conti, LockBit and many cobbled-together stream-cipher implementations.",
+      "source": "Public-RE-Conti-LockBit"
+    },
+    {
+      "name": "rdtscp_seed",
+      "type": "instruction",
+      "pattern": "rdtscp",
+      "context": "Variant of rdtsc with serializing semantics; same intent.",
+      "source": "Intel-SDM-public"
+    },
+    {
+      "name": "QueryPerformanceCounter",
+      "type": "api",
+      "pattern": "QueryPerformanceCounter",
+      "lib": "kernel32.dll",
+      "context": "High-resolution timer used as RNG seed in many in-house ransomware PRNGs.",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "QueryPerformanceFrequency",
+      "type": "api",
+      "pattern": "QueryPerformanceFrequency",
+      "lib": "kernel32.dll",
+      "context": "Often called alongside QueryPerformanceCounter as a seed mixer.",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetTickCount",
+      "type": "api",
+      "pattern": "GetTickCount",
+      "lib": "kernel32.dll",
+      "context": "Low-resolution timer used as a weak seed; classic ransomware fingerprint.",
+      "source": "Public-RE-many-families"
+    },
+    {
+      "name": "GetTickCount64",
+      "type": "api",
+      "pattern": "GetTickCount64",
+      "lib": "kernel32.dll",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetSystemTime",
+      "type": "api",
+      "pattern": "GetSystemTime",
+      "lib": "kernel32.dll",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetSystemTimeAsFileTime",
+      "type": "api",
+      "pattern": "GetSystemTimeAsFileTime",
+      "lib": "kernel32.dll",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetLocalTime",
+      "type": "api",
+      "pattern": "GetLocalTime",
+      "lib": "kernel32.dll",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "time_c_runtime",
+      "type": "api",
+      "pattern": "time",
+      "lib": "msvcrt.dll/ucrtbase.dll",
+      "context": "C runtime time(0) seed. Strong indicator of weak PRNG when followed by srand+rand.",
+      "source": "C-runtime-public"
+    },
+    {
+      "name": "srand",
+      "type": "api",
+      "pattern": "srand",
+      "lib": "msvcrt.dll/ucrtbase.dll",
+      "context": "Seeding the C runtime PRNG; rand() output should NEVER be the source of cryptographic keys, but several ransomware families do exactly that.",
+      "source": "Public-RE-many-families"
+    },
+    {
+      "name": "rand",
+      "type": "api",
+      "pattern": "rand",
+      "lib": "msvcrt.dll/ucrtbase.dll",
+      "source": "C-runtime-public"
+    },
+    {
+      "name": "rand_s",
+      "type": "api",
+      "pattern": "rand_s",
+      "lib": "ucrtbase.dll",
+      "context": "rand_s is the cryptographically-secure variant on Windows; presence does NOT indicate weak PRNG, but co-occurrence with rand() patterns is informative.",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetCurrentThreadId",
+      "type": "api",
+      "pattern": "GetCurrentThreadId",
+      "lib": "kernel32.dll",
+      "context": "Used as additional seed entropy by simple in-house PRNGs.",
+      "source": "Public-RE-many-families"
+    },
+    {
+      "name": "GetCurrentProcessId",
+      "type": "api",
+      "pattern": "GetCurrentProcessId",
+      "lib": "kernel32.dll",
+      "source": "Public-RE-many-families"
+    },
+    {
+      "name": "GetCurrentProcess",
+      "type": "api",
+      "pattern": "GetCurrentProcess",
+      "lib": "kernel32.dll",
+      "source": "Microsoft-public-API"
+    },
+    {
+      "name": "GetComputerNameA",
+      "type": "api",
+      "pattern": "GetComputerNameA",
+      "lib": "kernel32.dll",
+      "context": "Commonly mixed into per-machine 'unique' victim ID PRNG.",
+      "source": "Public-RE-many-families"
+    },
+    {
+      "name": "GetVolumeInformationA",
+      "type": "api",
+      "pattern": "GetVolumeInformationA",
+      "lib": "kernel32.dll",
+      "context": "Volume serial number used in ID/key-derivation in several families (CryptoLocker derivatives).",
+      "source": "Public-RE-CryptoLocker"
+    },
+    {
+      "name": "GetCursorPos",
+      "type": "api",
+      "pattern": "GetCursorPos",
+      "lib": "user32.dll",
+      "context": "Mouse position as entropy source.",
+      "source": "Public-RE-various-PRNGs"
+    },
+    {
+      "name": "Linear-congruential-multiplier-1103515245",
+      "type": "constant",
+      "pattern": "0x41C64E6D",
+      "context": "Classic LCG multiplier (1103515245); appears in glibc-style rand() and copies.",
+      "source": "Public-LCG-spec"
+    },
+    {
+      "name": "MSVC-rand-multiplier-214013",
+      "type": "constant",
+      "pattern": "0x343FD",
+      "context": "MSVC rand() LCG multiplier 214013 (=0x343FD); strong indicator of MS C runtime rand().",
+      "source": "MSVC-runtime-public"
+    },
+    {
+      "name": "MSVC-rand-increment-2531011",
+      "type": "constant",
+      "pattern": "0x269EC3",
+      "context": "MSVC rand() LCG increment 2531011 (=0x269EC3).",
+      "source": "MSVC-runtime-public"
+    },
+    {
+      "name": "Mersenne-twister-init-1812433253",
+      "type": "constant",
+      "pattern": "0x6C078965",
+      "context": "MT19937 initialization multiplier 1812433253; presence indicates self-built MT.",
+      "source": "Public-MT19937-spec"
+    },
+    {
+      "name": "xorshift32-magic-2147483647",
+      "type": "constant",
+      "pattern": "0x7FFFFFFF",
+      "context": "Common xorshift mask; weak by itself but combined with shift-13/17/5 patterns is diagnostic.",
+      "source": "Public-Xorshift-spec"
+    },
+    {
+      "name": "CryptoAPI-CSP-default-string",
+      "type": "string",
+      "pattern": "Microsoft Enhanced Cryptographic Provider v1.0",
+      "context": "Many ransomware families that use legacy CryptoAPI explicitly request this CSP.",
+      "source": "Microsoft-public-CSP-list"
+    },
+    {
+      "name": "CryptoAPI-CSP-RSA-AES-string",
+      "type": "string",
+      "pattern": "Microsoft Enhanced RSA and AES Cryptographic Provider",
+      "source": "Microsoft-public-CSP-list"
+    },
+    {
+      "name": "RDRAND-instruction",
+      "type": "instruction",
+      "pattern": "rdrand",
+      "context": "Hardware RNG; modern ransomware sometimes uses it directly.",
+      "source": "Intel-SDM-public"
+    },
+    {
+      "name": "RDSEED-instruction",
+      "type": "instruction",
+      "pattern": "rdseed",
+      "source": "Intel-SDM-public"
+    }
+  ],
+  "hardcoded_key_indicators": [
+    {
+      "name": "16-byte_imm_aligned_in_rdata",
+      "type": "data_pattern",
+      "context": "A 16-byte block at .rdata aligned address that is later loaded into AES key schedule via mov xmm0,[mem]; movdqu/aesenc."
+    },
+    {
+      "name": "32-byte_imm_aligned_in_rdata",
+      "type": "data_pattern",
+      "context": "A 32-byte block at .rdata aligned address consumed by AES-256 key schedule or ChaCha20 key load."
+    },
+    {
+      "name": "RSA-public-key-blob-in-rdata",
+      "type": "data_pattern",
+      "context": "A static RSA modulus (256/512 bytes) plus a 4-byte public exponent (0x00010001) embedded in .rdata; classic 'attacker public key shipped in binary' pattern."
+    },
+    {
+      "name": "RSA-public-exponent-65537",
+      "type": "constant",
+      "pattern": "0x00010001",
+      "context": "Public exponent e=65537 in little-endian (01 00 01 00). Combined with a contiguous 256/512-byte modulus is a strong attacker-pubkey indicator.",
+      "source": "RFC-3447"
+    },
+    {
+      "name": "Curve25519-pubkey-32B-in-rdata",
+      "type": "data_pattern",
+      "context": "32 contiguous bytes treated as an X25519 public key; appears in BlackCat/ALPHV, Sodinokibi/REvil drop variants.",
+      "source": "Public-RE-REvil-BlackCat"
+    },
+    {
+      "name": "high-entropy-32B-block-multiple-references",
+      "type": "heuristic",
+      "context": "32-byte block in .rdata referenced from multiple call sites and never written; classical hardcoded master key."
+    },
+    {
+      "name": "ASCII-key-string",
+      "type": "data_pattern",
+      "context": "ASCII string of length 16/24/32 stored as a literal and passed to AES_set_encrypt_key / EVP_EncryptInit_ex / mbedtls_aes_setkey_enc."
+    },
+    {
+      "name": "RC4-key-string-shorter-than-32",
+      "type": "data_pattern",
+      "context": "ASCII/printable string 5-31 bytes long, passed to RC4_set_key/CryptDeriveKey for legacy CryptoAPI RC4 (CryptoLocker, early Cerber variants).",
+      "source": "Public-RE-CryptoLocker-Cerber"
+    },
+    {
+      "name": "PEM-armored-public-key-in-rdata",
+      "type": "data_pattern",
+      "context": "'-----BEGIN PUBLIC KEY-----' literal embedded in .rdata."
+    },
+    {
+      "name": "static-IV-zero16",
+      "type": "data_pattern",
+      "pattern": "00 00 ... (16 bytes)",
+      "context": "16 bytes of NULs used as IV; common in WannaCry-style AES-CBC."
+    },
+    {
+      "name": "static-IV-counter-pattern",
+      "type": "data_pattern",
+      "context": "16-byte block where the last 4-8 bytes look like a counter (incrementing) — typical AES-CTR fixed-nonce error mode used by some samples."
+    },
+    {
+      "name": "ChaCha20-key-and-nonce-12B-pair",
+      "type": "data_pattern",
+      "context": "A 32-byte block (key) immediately followed by a 12-byte block (RFC-7539 nonce) in .rdata: indicates hardcoded ChaCha20 keying."
+    },
+    {
+      "name": "Salsa20-key-and-nonce-8B-pair",
+      "type": "data_pattern",
+      "context": "A 32-byte key followed by an 8-byte nonce — original Salsa20 nonce length, used by older STOP/Djvu variants.",
+      "source": "Public-RE-Stop-Djvu"
+    },
+    {
+      "name": "BCRYPT_RSAFULLPRIVATE_BLOB-in-rdata",
+      "type": "data_pattern",
+      "pattern": "RSA3 magic + N,e,p,q,dP,dQ,InvQ,d",
+      "context": "Static private key shipped in the binary (debug builds, unwrapped Conti/REvil dumps).",
+      "source": "Microsoft-CNG-public-API"
+    },
+    {
+      "name": "Hardcoded-AES-S-box-followed-by-key",
+      "type": "data_pattern",
+      "context": "If the AES S-box is statically embedded (i.e., custom AES instead of AES-NI) and a 16/32-byte key candidate sits nearby, treat key as hardcoded."
+    },
+    {
+      "name": "Single-XOR-byte-key",
+      "type": "data_pattern",
+      "context": "A loop body 'xor byte ptr [rsi], 0xNN' with a constant immediate is a single-byte XOR cipher (very weak; used by joke/wiper variants)."
+    },
+    {
+      "name": "32-byte-XOR-key-rotated",
+      "type": "data_pattern",
+      "context": "Loop body 'xor byte ptr [rsi+rcx], byte ptr [key+rcx & 31]' = repeating 32B XOR key; trivially recoverable."
+    }
+  ]
+}

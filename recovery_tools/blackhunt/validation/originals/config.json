@@ -1,0 +1,5 @@
+{
+  "fixture": "blackhunt",
+  "scheme": "ChaCha8 body, RSA-2048 wrapped key",
+  "synthetic": true
+}

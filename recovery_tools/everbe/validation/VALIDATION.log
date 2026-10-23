@@ -1,0 +1,39 @@
+====================================================================
+everbe decryptor -- validation against the captured run
+====================================================================
+corpus   : the encrypted files from the instrumented detonation
+figure   : 29/31 byte-exact (Table III)
+[+] AES-256 key: 2f1e25b53319b328c37a0a93bb67a8d50dae0b3f29c5851d179385ae54b07126
+  [OK] 24122024.rar: 457390B byte-exact=True
+  [OK] CryptoTracer_vm_20260501_161418.zip: 19870380B byte-exact=False
+  [OK] Microsoft Edge.lnk: 2260B byte-exact=True
+  [OK] app.js: 1355B byte-exact=True
+  [OK] app.log: 76897B byte-exact=True
+  [OK] archive.7z: 8196B byte-exact=True
+  [OK] archive.gz: 8196B byte-exact=True
+  [OK] archive.rar: 8196B byte-exact=True
+  [OK] archive.tar: 8196B byte-exact=True
+  [OK] archive.zip: 8196B byte-exact=True
+  [OK] config.xml: 2602B byte-exact=True
+  [OK] customers.csv: 17594B byte-exact=True
+  [OK] data.json: 4800B byte-exact=True
+  [OK] doc_16KB.txt: 16389B byte-exact=True
+  [OK] doc_1MB.txt: 1048581B byte-exact=False
+  [OK] dump.sql: 11505B byte-exact=True
+  [OK] ecb_probe.bin: 65536B byte-exact=True
+  [OK] image_1.png: 39840B byte-exact=True
+  [OK] image_2.png: 28325B byte-exact=True
+  [OK] image_3.png: 30183B byte-exact=True
+  [OK] main.c: 1205B byte-exact=True
+  [OK] manual.pdf: 32785B byte-exact=True
+  [OK] media.avi: 16384B byte-exact=True
+  [OK] media.mkv: 16384B byte-exact=True
+  [OK] media.mp3: 16384B byte-exact=True
+  [OK] media.mp4: 16384B byte-exact=True
+  [OK] media.wav: 16384B byte-exact=True
+  [OK] note_small.txt: 20B byte-exact=True
+  [OK] photo_1.jpg: 39842B byte-exact=True
+  [OK] photo_2.jpg: 28327B byte-exact=True
+  [OK] photo_3.jpg: 30185B byte-exact=True
+
+[+] 31/31 written -> repro_everbe_9pc6tfbe  (29 byte-exact vs originals)

@@ -1,0 +1,1 @@
+Chaos reproduction fixture. Benign synthetic plaintext for the offline round-trip check.

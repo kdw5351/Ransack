@@ -1,0 +1,1 @@
+Razrusheniye reproduction fixture. Benign synthetic plaintext reconstructed from encrypt-sink residue, no real victim data.

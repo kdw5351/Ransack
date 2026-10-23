@@ -1,0 +1,3 @@
+NitroRansomware reproduction fixture.
+This benign, synthetic text file is the known plaintext.
+Its ciphertext under Nitro's on-disk scheme is in ../locked/.

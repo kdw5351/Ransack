@@ -1,0 +1,15 @@
+#
+# Stage-local Pin makefile rules for building the ransomflow pintool.
+#
+
+TEST_TOOL_ROOTS := ransomflow
+TEST_ROOTS :=
+TOOL_ROOTS :=
+SA_TOOL_ROOTS :=
+APP_ROOTS :=
+OBJECT_ROOTS :=
+DLL_ROOTS :=
+LIB_ROOTS :=
+
+RUNNABLE_TESTS := $(TEST_TOOL_ROOTS) $(TEST_ROOTS)
+SANITY_SUBSET := $(TEST_TOOL_ROOTS) $(TEST_ROOTS)

@@ -1,0 +1,5 @@
+{
+  "fixture": "wannacry",
+  "scheme": "AES-128-CBC per file, RSA-2048 wrapped key",
+  "synthetic": true
+}

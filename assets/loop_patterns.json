@@ -1,0 +1,1727 @@
+{
+  "_meta": {
+    "schema_version": 1,
+    "match_engine": "loop_classifier.py",
+    "match_modes": {
+      "seq": "ordered prefix match against mnemonic sequence",
+      "set": "order-invariant set membership (all required must appear)",
+      "any": "at least one of the listed mnemonics appears",
+      "ratio": "fraction of an opcode within total instructions",
+      "act": "filter on activity stats (Mem/R, Mem/W, calls, calc, xor)"
+    },
+    "labels_used": [
+      "anti.short_loop",
+      "anti.spinlock_pause",
+      "control.add_pop_epilogue",
+      "control.bounded_probe",
+      "control.chained_equals",
+      "control.dispatch",
+      "control.epilogue_pop_chain",
+      "control.indirect_call",
+      "control.multi_condition_probe",
+      "control.short_branch",
+      "control.short_test_chain",
+      "control.struct_return",
+      "counter.add_test",
+      "counter.bytewise",
+      "counter.cmp_jb_walk",
+      "counter.dec_cmp",
+      "counter.dec_jnz",
+      "counter.dec_test",
+      "counter.double_add",
+      "counter.dual_compare",
+      "counter.dword_walk",
+      "counter.mov_add_test",
+      "counter.mov_inc_test",
+      "counter.simple",
+      "counter.test_walk",
+      "crypto.aes_mixcolumns",
+      "crypto.aes_ni",
+      "crypto.aes_software_sbox",
+      "crypto.bignum_modexp",
+      "crypto.bignum_montgomery",
+      "crypto.chacha_quarter",
+      "crypto.crc32_table",
+      "crypto.des_feistel_round",
+      "crypto.hmac_ipad_opad",
+      "crypto.md5_round",
+      "crypto.salsa20_quarter",
+      "crypto.sha2_round",
+      "crypto.tea_round",
+      "crypto.xor_chain_double",
+      "crypto.xor_pointer_walk_double",
+      "crypto.xor_rotate",
+      "crypto.xor_stream",
+      "empty_body",
+      "encoding.base64",
+      "encoding.base64_pack",
+      "encoding.byte_repack",
+      "encoding.hex",
+      "fs.file_copy_loop",
+      "fs.read_write_pair",
+      "memory.bitfield_assemble",
+      "memory.bound_then_dispatch",
+      "memory.bounded_char_dispatch",
+      "memory.bulk_movups_aligned",
+      "memory.bulk_movups_sse",
+      "memory.byte_or_scan",
+      "memory.byte_process_skip",
+      "memory.byte_scan_with_mask",
+      "memory.char_dispatch",
+      "memory.char_range_dispatch",
+      "memory.dual_pointer_compare",
+      "memory.dword_compare_chain",
+      "memory.guarded_byte_op",
+      "memory.guarded_copy",
+      "memory.linked_list_walk",
+      "memory.memcmp",
+      "memory.memcpy_dword",
+      "memory.memcpy_rep_movs",
+      "memory.memset_dword",
+      "memory.memset_qword",
+      "memory.multi_pointer_walk",
+      "memory.range_check_write",
+      "memory.struct_init",
+      "memory.struct_walk",
+      "shred.random_overwrite",
+      "single_instruction_body",
+      "string.case_convert",
+      "string.copy_with_terminator",
+      "string.length_loop",
+      "string.scan",
+      "string.strcmp",
+      "string.strlen",
+      "unknown.utility"
+    ]
+  },
+  "patterns": [
+    {
+      "name": "memory.memset_dword",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_init",
+      "match": {
+        "act": {
+          "mem_r_max": 0,
+          "mem_w_min": 1,
+          "calls_max": 0,
+          "xor_max": 0
+        },
+        "set": [
+          "mov",
+          "add",
+          "cmp",
+          "jnz"
+        ],
+        "insts_max": 12
+      },
+      "confidence": 0.95,
+      "description": "Loop writes a constant in DWORD steps until it hits a sentinel."
+    },
+    {
+      "name": "memory.memset_qword",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_init",
+      "match": {
+        "act": {
+          "mem_r_max": 0,
+          "mem_w_min": 2,
+          "calls_max": 0
+        },
+        "set": [
+          "mov",
+          "add",
+          "sub",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 12,
+        "any_mnem_count": [
+          [
+            "mov",
+            2
+          ]
+        ]
+      },
+      "confidence": 0.9,
+      "description": "Two-DWORD-write zero/constant fill (often qword by 8 bytes per iter)."
+    },
+    {
+      "name": "memory.memcpy_dword",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1,
+          "calls_max": 0,
+          "xor_max": 0
+        },
+        "set": [
+          "mov",
+          "mov",
+          "add",
+          "cmp",
+          "jnz"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Read-then-write same width, advance both pointers each step.",
+      "set": [
+        "mov",
+        "add",
+        "cmp",
+        "jnz"
+      ],
+      "any_mnem_count": [
+        [
+          "mov",
+          2
+        ]
+      ]
+    },
+    {
+      "name": "memory.memcpy_rep_movs",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "any": [
+          "movsd",
+          "movsb",
+          "movsw",
+          "movsq",
+          "rep_movs"
+        ],
+        "insts_max": 6
+      },
+      "confidence": 0.99,
+      "description": "REP MOVS hardware-string copy."
+    },
+    {
+      "name": "memory.memcmp",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_compare",
+      "match": {
+        "act": {
+          "mem_r_min": 2,
+          "mem_w_max": 0
+        },
+        "set": [
+          "mov",
+          "cmp",
+          "jnz"
+        ],
+        "insts_max": 10
+      },
+      "confidence": 0.8
+    },
+    {
+      "name": "string.strlen",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "set": [
+          "movzx",
+          "test",
+          "jz"
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_max": 0
+        }
+      },
+      "confidence": 0.7,
+      "set": [
+        "movzx",
+        "test",
+        "jnz"
+      ]
+    },
+    {
+      "name": "string.scan",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "any": [
+          "repne_scasb",
+          "repe_scasb",
+          "repne_scasw"
+        ],
+        "insts_max": 8
+      },
+      "confidence": 0.99
+    },
+    {
+      "name": "string.strcmp",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "set": [
+          "movzx",
+          "movzx",
+          "cmp",
+          "jnz"
+        ],
+        "act": {
+          "mem_r_min": 2,
+          "mem_w_max": 0
+        }
+      },
+      "confidence": 0.7,
+      "set": [
+        "movzx",
+        "cmp",
+        "jnz"
+      ],
+      "any_mnem_count": [
+        [
+          "movzx",
+          2
+        ]
+      ]
+    },
+    {
+      "name": "counter.simple",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "inc",
+          "cmp",
+          "jnz"
+        ],
+        "insts_max": 6
+      },
+      "confidence": 0.6,
+      "description": "Pure counter increment + compare + branch."
+    },
+    {
+      "name": "counter.bytewise",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "set": [
+          "movzx",
+          "add",
+          "test",
+          "jnz"
+        ]
+      },
+      "confidence": 0.6
+    },
+    {
+      "name": "counter.dword_walk",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "mov",
+          "add",
+          "cmp",
+          "jnz"
+        ],
+        "act": {
+          "calls_max": 0
+        }
+      },
+      "confidence": 0.7
+    },
+    {
+      "name": "crypto.xor_stream",
+      "source": "generic XOR cipher / self-documenting byte-stream XOR",
+      "category": "crypto",
+      "match": {
+        "any_mnem_count": [
+          [
+            "xor",
+            1
+          ]
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1,
+          "xor_min": 1,
+          "calls_max": 1
+        }
+      },
+      "confidence": 0.45,
+      "description": "Per-byte XOR of source against key, stored back. RC4 / RC4-like / simple stream cipher. NOTE 2026-06-01: a lone XOR + read/write is extremely common in non-crypto code, so confidence was lowered from 0.8 — treat as a WEAK proposal that requires S2 (crypto-API) or S3 (byte-constant) corroboration before being trusted."
+    },
+    {
+      "name": "crypto.xor_rotate",
+      "source": "generic XOR cipher / self-documenting byte-stream XOR",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "ror",
+          "rol",
+          "rcr",
+          "rcl"
+        ],
+        "any_mnem_count": [
+          [
+            "xor",
+            1
+          ]
+        ],
+        "act": {
+          "xor_min": 1
+        }
+      },
+      "confidence": 0.5,
+      "description": "XOR followed by bit rotation; indicative of RC5/RC6/MD5/SHA1 step mixing or block-cipher keystream/round-mixing. NOTE: previously mislabeled as CRC32-like — CRC32 uses SHR + conditional XOR (no ROL/ROR). xor+rotate is common outside crypto; S2/S3 corroboration recommended."
+    },
+    {
+      "name": "crypto.aes_ni",
+      "source": "FIPS-197 (Advanced Encryption Standard)",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "aesenc",
+          "aesenclast",
+          "aesdec",
+          "aesdeclast",
+          "aeskeygenassist"
+        ]
+      },
+      "confidence": 0.99,
+      "description": "Hardware AES round."
+    },
+    {
+      "name": "crypto.aes_software_sbox",
+      "source": "FIPS-197 (Advanced Encryption Standard)",
+      "category": "crypto",
+      "match": {
+        "set": [
+          "movzx",
+          "mov",
+          "xor",
+          "shr"
+        ],
+        "act": {
+          "mem_r_min": 16,
+          "xor_min": 1
+        },
+        "insts_min": 20
+      },
+      "confidence": 0.7,
+      "description": "Software AES SubBytes/T-table — multiple table lookups per round."
+    },
+    {
+      "name": "crypto.aes_mixcolumns",
+      "source": "FIPS-197 (Advanced Encryption Standard)",
+      "category": "crypto",
+      "match": {
+        "set": [
+          "mov",
+          "shl",
+          "shr",
+          "xor",
+          "and"
+        ],
+        "any_mnem_count": [
+          [
+            "xor",
+            2
+          ],
+          [
+            "shl",
+            1
+          ]
+        ]
+      },
+      "confidence": 0.7,
+      "description": "MixColumns: shift + xor + GF(2^8) reduction with 0x1b."
+    },
+    {
+      "name": "crypto.sha2_round",
+      "source": "FIPS-180-4 (Secure Hash Standard)",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "ror"
+        ],
+        "any_mnem_count": [
+          [
+            "xor",
+            2
+          ],
+          [
+            "ror",
+            2
+          ]
+        ],
+        "act": {
+          "xor_min": 2
+        }
+      },
+      "confidence": 0.8,
+      "description": "SHA-256 round: multiple XOR + ROR for sigma functions."
+    },
+    {
+      "name": "crypto.md5_round",
+      "source": "RFC 1321 (MD5 Message-Digest Algorithm)",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "rol"
+        ],
+        "any_mnem_count": [
+          [
+            "add",
+            4
+          ],
+          [
+            "rol",
+            1
+          ]
+        ],
+        "imm_const_required_any": [
+          "d76aa478",
+          "e8c7b756",
+          "242070db",
+          "c1bdceee",
+          "f57c0faf",
+          "4787c62a",
+          "a8304613",
+          "fd469501",
+          "698098d8",
+          "8b44f7af",
+          "ffff5bb1",
+          "895cd7be",
+          "6b901122",
+          "fd987193",
+          "a679438e",
+          "49b40821"
+        ]
+      },
+      "confidence": 0.7,
+      "description": "MD5 step (RFC 1321): 4 ADDs + 1 ROL per step (T[i] + msg + state + state, then rotate).",
+      "spec_citation": "RFC 1321 §3.4 — 4 ADDs + 1 ROL per step"
+    },
+    {
+      "name": "crypto.chacha_quarter",
+      "source": "RFC 7539 / RFC 8439 (ChaCha20-Poly1305)",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "rol",
+          "ror"
+        ],
+        "imm_const_forbidden_any": [
+          "9e3779b9",
+          "61c88647"
+        ],
+        "rot_schedule": {
+          "amounts": [
+            16,
+            12,
+            8,
+            7
+          ],
+          "min": 4,
+          "max_distinct": 8
+        },
+        "act": {
+          "xor_min": 8,
+          "calc_min": 8
+        },
+        "insts_max": 600
+      },
+      "confidence": 0.9,
+      "description": "ChaCha20 quarter-round per RFC 7539 §2.1: a += b; d ^= a; rotl(d, 16|12|8|7).  Spec-derived gates: requires at least one ChaCha sigma constant (0x61707865, 0x3320646e, 0x79622d32, 0x6b206574 — RFC 7539 §2.3), and forbids TEA delta to avoid junk-rotation false matches in TEA-family obfuscated implementations.  Activity: 4 XORs + 4 ADDs + rotation mnemonic.",
+      "spec_citation": "RFC 7539 §2.1 (quarter-round) + §2.3 (sigma constants)"
+    },
+    {
+      "name": "crypto.bignum_modexp",
+      "source": "RFC 8017 (PKCS#1 v2.2) — RSA modular exponentiation",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "mul",
+          "imul"
+        ],
+        "any_mnem_count": [
+          [
+            "mul",
+            1
+          ]
+        ],
+        "iters_min": 64
+      },
+      "confidence": 0.45,
+      "description": "Modular exponentiation in long iteration: characteristic of RSA decrypt/sign in the loop.",
+      "conf": 0.4
+    },
+    {
+      "name": "crypto.bignum_montgomery",
+      "source": "Montgomery 1985 'Modular Multiplication Without Trial Division' (Mathematics of Computation 44:519-521) + RFC 8017",
+      "category": "crypto",
+      "match": {
+        "any": [
+          "adc",
+          "sbb"
+        ],
+        "any_mnem_count": [
+          [
+            "mul",
+            1
+          ],
+          [
+            "adc",
+            1
+          ]
+        ]
+      },
+      "confidence": 0.7,
+      "description": "Montgomery multiplication: MUL + ADC carry chain."
+    },
+    {
+      "name": "crypto.crc32_table",
+      "source": "ITU-T V.42 (CRC-32 polynomial 0xEDB88320) + Koopman 2002 'Cyclic Redundancy Codes' systematic analysis; RFC 3720 iSCSI (CRC32C / Castagnoli 0x1EDC6F41 / reflected 0x82F63B78)",
+      "category": "crypto",
+      "match": {
+        "set": [
+          "mov",
+          "shr",
+          "xor",
+          "and"
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "xor_min": 1
+        },
+        "imm_const_required_any": [
+          "edb88320",
+          "04c11db7",
+          "82f63b78",
+          "1edc6f41"
+        ]
+      },
+      "confidence": 0.75,
+      "description": "Table-based CRC32: shift, mask, XOR with table[i]."
+    },
+    {
+      "name": "encoding.base64",
+      "source": "RFC 4648 (Base64 encoding)",
+      "category": "encoding",
+      "match": {
+        "set": [
+          "movzx",
+          "shl",
+          "shr",
+          "or",
+          "and"
+        ],
+        "act": {
+          "mem_r_min": 1
+        }
+      },
+      "confidence": 0.5,
+      "conf": 0.3,
+      "_paper_note": "Structural mnemonic gating only; confidence lowered (0.30 base64 / 0.25 hex) to discount false-positive risk."
+    },
+    {
+      "name": "encoding.hex",
+      "source": "RFC 4648 (Base16 hexadecimal encoding)",
+      "category": "encoding",
+      "match": {
+        "set": [
+          "movzx",
+          "and",
+          "add",
+          "cmp"
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1
+        }
+      },
+      "confidence": 0.4,
+      "conf": 0.25,
+      "_paper_note": "Structural mnemonic gating only; confidence lowered (0.30 base64 / 0.25 hex) to discount false-positive risk."
+    },
+    {
+      "name": "anti.short_loop",
+      "source": "Intel SDM Volume 2 (PAUSE instruction) + anti-analysis literature (Branco, Barbosa & Neto 2012 'Scientific but Non Academic Overview of Malware Anti-Debugging, Anti-Disassembly and Anti-VM Technologies' (Black Hat USA 2012))",
+      "category": "control_flow",
+      "match": {
+        "iters_max": 3,
+        "insts_max": 6
+      },
+      "confidence": 0.3,
+      "description": "Very short loop body (probable compiler-generated prolog/epilog or unroll tail). NOT a reliable anti-analysis signature on its own; for anti-analysis use, require rdtsc/cpuid/int2d combinatorial gating."
+    },
+    {
+      "name": "control.indirect_call",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "any": [
+          "call"
+        ],
+        "act": {
+          "calls_min": 1,
+          "calc_max": 1
+        }
+      },
+      "confidence": 0.5,
+      "description": "Loop body dominated by an indirect call (dispatch table)."
+    },
+    {
+      "name": "control.dispatch",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "set": [
+          "mov",
+          "test",
+          "jz",
+          "call"
+        ],
+        "act": {
+          "calls_min": 1
+        }
+      },
+      "confidence": 0.55
+    },
+    {
+      "name": "control.short_branch",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "set": [
+          "cmp",
+          "jz",
+          "add",
+          "sub",
+          "jnz"
+        ],
+        "insts_max": 6
+      },
+      "confidence": 0.4
+    },
+    {
+      "name": "fs.file_copy_loop",
+      "source": "Microsoft Learn Win32 File / Dir API",
+      "category": "file_io",
+      "match": {
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1,
+          "calls_min": 2
+        }
+      },
+      "confidence": 0.45,
+      "description": "Read-write pair within a call-heavy body — typical FS copy."
+    },
+    {
+      "name": "shred.random_overwrite",
+      "source": "self-documenting structural (overwrite-with-random pattern; cf. NIST SP 800-88 Rev.1 'Guidelines for Media Sanitization' rationale)",
+      "category": "anti_forensic",
+      "match": {
+        "act": {
+          "mem_r_max": 0,
+          "mem_w_min": 4,
+          "calls_min": 1,
+          "calc_min": 1
+        }
+      },
+      "confidence": 0.6,
+      "description": "Repeated writes from RNG output without reads — file shred."
+    },
+    {
+      "name": "memory.bulk_movups_sse",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "any": [
+          "movups",
+          "movaps",
+          "movdqa",
+          "movdqu"
+        ],
+        "any_mnem_count": [
+          [
+            "movups",
+            4
+          ]
+        ]
+      },
+      "confidence": 0.95,
+      "description": "SSE/SSE2 16-byte bulk memcpy unrolled (movups×N).",
+      "conf": 0.8
+    },
+    {
+      "name": "memory.bulk_movups_aligned",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "any": [
+          "movaps",
+          "movdqa"
+        ],
+        "any_mnem_count": [
+          [
+            "movaps",
+            4
+          ]
+        ]
+      },
+      "confidence": 0.7
+    },
+    {
+      "name": "anti.spinlock_pause",
+      "source": "Intel SDM Volume 2 (PAUSE instruction, spin-wait hint)",
+      "category": "anti_analysis",
+      "match": {
+        "any": [
+          "pause"
+        ]
+      },
+      "confidence": 0.85,
+      "description": "Loop with PAUSE — busy-wait spinlock or anti-emulation timing check."
+    },
+    {
+      "name": "counter.test_walk",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "inc",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 8
+      },
+      "confidence": 0.4,
+      "description": "Counter that branches on TEST instead of CMP (zero-test loop)."
+    },
+    {
+      "name": "counter.add_test",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "add",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 8
+      },
+      "confidence": 0.6
+    },
+    {
+      "name": "counter.dec_test",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "dec",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 8
+      },
+      "confidence": 0.5
+    },
+    {
+      "name": "counter.mov_inc_test",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "mov",
+          "inc",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 10
+      },
+      "confidence": 0.6,
+      "description": "Read-then-counter (often a structure walk)."
+    },
+    {
+      "name": "counter.mov_add_test",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "mov",
+          "add",
+          "test",
+          "jnz"
+        ],
+        "insts_max": 10
+      },
+      "confidence": 0.6
+    },
+    {
+      "name": "counter.dual_compare",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "cmp",
+          "jnz",
+          "inc",
+          "cmp",
+          "jl"
+        ],
+        "insts_max": 10
+      },
+      "confidence": 0.6
+    },
+    {
+      "name": "counter.cmp_jb_walk",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "set": [
+          "mov",
+          "cmp",
+          "jb",
+          "add"
+        ],
+        "act": {
+          "calls_max": 0
+        }
+      },
+      "confidence": 0.5
+    },
+    {
+      "name": "counter.dec_jnz",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "dec",
+          "jnz"
+        ],
+        "insts_max": 6
+      },
+      "confidence": 0.4
+    },
+    {
+      "name": "counter.dec_cmp",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "dec",
+          "cmp",
+          "jz",
+          "cmp",
+          "jnz"
+        ],
+        "insts_max": 12
+      },
+      "confidence": 0.55,
+      "conf": 0.35
+    },
+    {
+      "name": "memory.byte_scan_with_mask",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_scan",
+      "match": {
+        "seq": [
+          "cmp",
+          "jnb",
+          "mov",
+          "or",
+          "inc",
+          "movzx",
+          "cmp",
+          "jbe"
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1
+        }
+      },
+      "confidence": 0.65,
+      "description": "Byte scan + OR-mask write (string sanitisation / charset filter)."
+    },
+    {
+      "name": "memory.byte_or_scan",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_scan",
+      "match": {
+        "set": [
+          "mov",
+          "or",
+          "movzx",
+          "inc",
+          "cmp",
+          "jbe"
+        ]
+      },
+      "confidence": 0.5,
+      "description": "Byte-stream OR-accumulate scan (charset folding / mask aggregation)."
+    },
+    {
+      "name": "memory.byte_process_skip",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_scan",
+      "match": {
+        "seq": [
+          "movzx",
+          "mov",
+          "lea",
+          "test",
+          "jz",
+          "sub",
+          "jnz"
+        ]
+      },
+      "confidence": 0.7,
+      "description": "Byte fetch with skip-on-zero — common in C-string processing.",
+      "conf": 0.55
+    },
+    {
+      "name": "memory.linked_list_walk",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_scan",
+      "match": {
+        "seq": [
+          "lea",
+          "dec",
+          "mov",
+          "test",
+          "jz",
+          "mov",
+          "test",
+          "jnz"
+        ]
+      },
+      "confidence": 0.7,
+      "description": "Linked list walk: dec counter, fetch next, test for null.",
+      "_note": "dec inside walk reflects bounded count; consider rename to bounded_list_walk"
+    },
+    {
+      "name": "memory.dual_pointer_compare",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_compare",
+      "match": {
+        "seq": [
+          "mov",
+          "cmp",
+          "jnz",
+          "test",
+          "jz",
+          "mov",
+          "cmp",
+          "jnz",
+          "add",
+          "add"
+        ],
+        "act": {
+          "mem_r_min": 4,
+          "calls_max": 0
+        }
+      },
+      "confidence": 0.75,
+      "description": "Two pointers walked together with comparison (memcmp / strcmp variant)."
+    },
+    {
+      "name": "memory.char_dispatch",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "movzx",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz"
+        ]
+      },
+      "confidence": 0.65,
+      "description": "Character dispatch chain — switch-case on byte value."
+    },
+    {
+      "name": "memory.bitfield_assemble",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_pack",
+      "match": {
+        "seq": [
+          "or",
+          "mov",
+          "mov",
+          "mov",
+          "mov",
+          "mov",
+          "mov"
+        ],
+        "act": {
+          "mem_w_min": 4
+        }
+      },
+      "confidence": 0.6,
+      "description": "Pack multiple fields into a packed structure (header construction).",
+      "_note": "seq is generic store-chain after single or; rename candidate: memory.store_chain"
+    },
+    {
+      "name": "memory.struct_init",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_init",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "mov",
+          "mov",
+          "add",
+          "pop"
+        ],
+        "act": {
+          "mem_w_min": 1,
+          "calls_max": 0
+        }
+      },
+      "confidence": 0.5,
+      "description": "Structure field initialisation followed by stack epilogue."
+    },
+    {
+      "name": "memory.multi_pointer_walk",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "inc",
+          "inc",
+          "dec",
+          "jnz",
+          "lea",
+          "lea"
+        ]
+      },
+      "confidence": 0.7,
+      "description": "Two pointers + counter advancing in lockstep (interleaved walk).",
+      "_note": "lea entries at tail of seq; reorder to leading lea or move to category memory_walk"
+    },
+    {
+      "name": "control.epilogue_pop_chain",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "stack_op",
+      "match": {
+        "seq": [
+          "pop",
+          "pop",
+          "pop",
+          "pop",
+          "pop",
+          "pop"
+        ],
+        "insts_max": 14
+      },
+      "confidence": 0.85,
+      "description": "Function epilogue dominated by POP chain — not really a loop body."
+    },
+    {
+      "name": "control.add_pop_epilogue",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "stack_op",
+      "match": {
+        "seq": [
+          "add",
+          "pop",
+          "pop"
+        ],
+        "insts_max": 12
+      },
+      "confidence": 0.6
+    },
+    {
+      "name": "control.multi_condition_probe",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "test",
+          "jz",
+          "mov",
+          "test",
+          "jnz",
+          "test",
+          "jnz"
+        ]
+      },
+      "confidence": 0.55,
+      "description": "Several quick guard checks — option/flag interrogation.",
+      "conf": 0.32
+    },
+    {
+      "name": "control.bounded_probe",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "inc",
+          "cmp",
+          "jb",
+          "mov",
+          "mov",
+          "test",
+          "jz"
+        ]
+      },
+      "confidence": 0.5
+    },
+    {
+      "name": "control.short_test_chain",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "test",
+          "jz",
+          "mov",
+          "test",
+          "jz",
+          "mov"
+        ],
+        "insts_max": 12
+      },
+      "confidence": 0.45,
+      "conf": 0.28
+    },
+    {
+      "name": "crypto.xor_pointer_walk_double",
+      "source": "generic XOR cipher / self-documenting byte-stream XOR",
+      "category": "crypto_or_pointer_mix",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "add",
+          "xor",
+          "xor",
+          "add",
+          "test",
+          "jz"
+        ],
+        "any_mnem_count": [
+          [
+            "xor",
+            2
+          ]
+        ]
+      },
+      "confidence": 0.5,
+      "description": "Two consecutive XORs with pointer arithmetic and a zero-test exit. Matches XOR-stream / block-round mixing AS WELL AS non-crypto patterns: MSVC __security_cookie XOR validation, EH cookie XOR, ntdll/CRT mangle."
+    },
+    {
+      "name": "crypto.xor_chain_double",
+      "source": "generic XOR cipher / self-documenting byte-stream XOR",
+      "category": "crypto_or_mask_mix",
+      "match": {
+        "any_mnem_count": [
+          [
+            "xor",
+            2
+          ]
+        ],
+        "any": [
+          "shl",
+          "shr",
+          "rol",
+          "ror"
+        ],
+        "act": {
+          "xor_min": 2,
+          "mem_r_min": 1,
+          "mem_w_min": 1
+        }
+      },
+      "confidence": 0.4,
+      "description": "XOR appears >=2x in body -- possible mask/cookie/round; non-discriminative on its own.",
+      "spec_citation": "Wikipedia XOR cipher (no spec — rule is heuristic only)"
+    },
+    {
+      "name": "encoding.base64_pack",
+      "source": "RFC 4648 (Base64 encoding)",
+      "category": "encoding",
+      "match": {
+        "set": [
+          "mov",
+          "shl",
+          "shr",
+          "or",
+          "and",
+          "mov"
+        ],
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1
+        }
+      },
+      "confidence": 0.55,
+      "set": [
+        "mov",
+        "shl",
+        "shr",
+        "or",
+        "and"
+      ]
+    },
+    {
+      "name": "encoding.byte_repack",
+      "source": "self-documenting structural (byte reorder)",
+      "category": "encoding",
+      "match": {
+        "seq": [
+          "movzx",
+          "shl",
+          "or",
+          "and"
+        ]
+      },
+      "confidence": 0.5
+    },
+    {
+      "name": "string.length_loop",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "seq": [
+          "movzx",
+          "test",
+          "jz",
+          "inc"
+        ],
+        "insts_max": 8,
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_max": 0
+        }
+      },
+      "confidence": 0.7
+    },
+    {
+      "name": "string.copy_with_terminator",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "seq": [
+          "mov",
+          "dec",
+          "mov",
+          "test",
+          "jz",
+          "movzx",
+          "add",
+          "mov",
+          "cmp"
+        ],
+        "act": {
+          "mem_w_min": 2
+        }
+      },
+      "confidence": 0.7,
+      "description": "String copy that terminates on null byte.",
+      "_note": "seq overly specific; consider simplify to [movzx,mov,test,jnz]"
+    },
+    {
+      "name": "string.case_convert",
+      "source": "C standard library / POSIX string operations (strlen, strcmp, strcpy, etc.) — self-documenting structural",
+      "category": "string",
+      "match": {
+        "seq": [
+          "sub",
+          "mov",
+          "cmp",
+          "jb",
+          "movzx",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz"
+        ]
+      },
+      "confidence": 0.55,
+      "description": "Range-checked character transformation (toupper/tolower / charset filter).",
+      "_note": "missing or/sub arithmetic step; consider adding 0x20 toggle"
+    },
+    {
+      "name": "fs.read_write_pair",
+      "source": "Microsoft Learn Win32 File / Dir API",
+      "category": "file_io",
+      "match": {
+        "act": {
+          "mem_r_min": 1,
+          "mem_w_min": 1,
+          "calls_min": 2
+        }
+      },
+      "confidence": 0.55,
+      "description": "Body has both read and write API calls — likely the encrypt-and-write inner loop.",
+      "_note": "no mnemonic constraints; consider requiring call x2 with IO_API tagged resolver"
+    },
+    {
+      "name": "single_instruction_body",
+      "source": "self-documenting structural (trivial loop shape)",
+      "category": "degenerate",
+      "match": {
+        "insts_max": 2
+      },
+      "confidence": 0.3,
+      "description": "Loop body of ≤2 instructions — usually a NOP probe or trivial increment."
+    },
+    {
+      "name": "empty_body",
+      "source": "self-documenting structural (trivial loop shape)",
+      "category": "degenerate",
+      "match": {
+        "insts_max": 0
+      },
+      "confidence": 0.2,
+      "description": "Empty (or unparsable) loop body."
+    },
+    {
+      "name": "memory.struct_walk",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_scan",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "test",
+          "jnz",
+          "add",
+          "sub",
+          "jnz"
+        ]
+      },
+      "confidence": 0.6,
+      "description": "Struct walk: load two fields, advance pointer, decrement counter."
+    },
+    {
+      "name": "memory.char_range_dispatch",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "movzx",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz",
+          "add",
+          "cmp",
+          "jb"
+        ]
+      },
+      "confidence": 0.6,
+      "description": "Read byte, two equality checks, then range check."
+    },
+    {
+      "name": "memory.guarded_copy",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_copy",
+      "match": {
+        "seq": [
+          "test",
+          "jz",
+          "lea",
+          "cmp",
+          "jz",
+          "mov",
+          "mov",
+          "jmp"
+        ]
+      },
+      "confidence": 0.6,
+      "description": "Guard test, then a small copy, then unconditional jump."
+    },
+    {
+      "name": "memory.bounded_char_dispatch",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "cmp",
+          "jbe",
+          "movzx",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz"
+        ]
+      },
+      "confidence": 0.6,
+      "description": "Bounds-check then byte-load + two equality dispatches (switch/case on small char domain)."
+    },
+    {
+      "name": "control.chained_equals",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "cmp",
+          "jz",
+          "cmp",
+          "jz",
+          "sub"
+        ],
+        "insts_max": 12
+      },
+      "confidence": 0.55
+    },
+    {
+      "name": "memory.range_check_write",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_process",
+      "match": {
+        "seq": [
+          "cmp",
+          "jnb",
+          "mov",
+          "mov",
+          "movzx",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz",
+          "mov",
+          "inc",
+          "mov"
+        ]
+      },
+      "confidence": 0.55,
+      "description": "Bounded write loop with range check + two equality-dispatch branches (sanitizer / charset)."
+    },
+    {
+      "name": "counter.double_add",
+      "source": "self-documenting structural (generic counter / loop iteration construct)",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "test",
+          "jnz",
+          "inc",
+          "add",
+          "add",
+          "cmp",
+          "jb"
+        ]
+      },
+      "confidence": 0.6,
+      "description": "Counter with two ADDs per iteration (commonly 2-stride pointer advance)."
+    },
+    {
+      "name": "memory.guarded_byte_op",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_process",
+      "match": {
+        "seq": [
+          "test",
+          "jz",
+          "test",
+          "jz",
+          "dec",
+          "mov",
+          "dec",
+          "mov",
+          "movzx"
+        ]
+      },
+      "confidence": 0.55,
+      "description": "Guarded byte op: two test/jz gates then decrement-and-store byte loop."
+    },
+    {
+      "name": "memory.bound_then_dispatch",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "control_flow",
+      "match": {
+        "seq": [
+          "cmp",
+          "jb",
+          "cmp",
+          "jz",
+          "cmp",
+          "jz",
+          "sub",
+          "jmp"
+        ]
+      },
+      "confidence": 0.55,
+      "_note": "jump-table dispatch; description field empty"
+    },
+    {
+      "name": "control.struct_return",
+      "source": "self-documenting CFG / loop construct (no external spec)",
+      "category": "stack_op",
+      "match": {
+        "seq": [
+          "lea",
+          "mov",
+          "mov",
+          "mov",
+          "mov",
+          "pop",
+          "pop"
+        ],
+        "insts_max": 14
+      },
+      "confidence": 0.7,
+      "description": "Struct fields loaded into return registers + epilogue."
+    },
+    {
+      "name": "memory.dword_compare_chain",
+      "source": "Intel SDM Volume 2 (instruction reference) — self-documenting memory operation pattern",
+      "category": "memory_compare",
+      "match": {
+        "seq": [
+          "mov",
+          "mov",
+          "mov",
+          "cmp",
+          "jnz",
+          "cmp",
+          "jnz"
+        ],
+        "act": {
+          "mem_r_min": 4
+        }
+      },
+      "confidence": 0.6,
+      "description": "Multi-DWORD compare (likely struct equality)."
+    },
+    {
+      "name": "unknown.utility",
+      "source": "fallback label (no external spec — generic utility loop)",
+      "category": "fallback",
+      "match": {},
+      "confidence": 0.0,
+      "description": "Fallback when no other pattern matches."
+    },
+    {
+      "name": "crypto.des_feistel_round",
+      "source": "FIPS-46-3 (Data Encryption Standard, withdrawn 2005 but spec preserved); Wikipedia DES",
+      "category": "crypto",
+      "match": {
+        "act": {
+          "xor_min": 8
+        },
+        "set": [
+          "xor",
+          "shr",
+          "shl",
+          "and"
+        ],
+        "any_mnem_count": [
+          [
+            "movzx",
+            8
+          ]
+        ],
+        "imm_const_required_any": [
+          "3F",
+          "40"
+        ],
+        "insts_max": 80
+      },
+      "confidence": 0.4,
+      "description": "DES Feistel F-function suspect: 32->48 bit expansion (no rotation in F-function — rotations exist only in DES key schedule), 8 S-box LUT substitutions (8x movzx), P-permutation. xor_min raised to 8 to enforce per-round XOR density.",
+      "spec_citation": "NIST FIPS 46-3 §3 (DES algorithm) -- F-function has no rotation",
+      "_note": "shr/shl/and required works for inlined bit-shifted F; table-driven DES (table lookups) will not match — see future crypto.des_table_lookup"
+    },
+    {
+      "name": "crypto.salsa20_quarter",
+      "source": "Bernstein Salsa20 design + eSTREAM portfolio submission",
+      "category": "crypto",
+      "match": {
+        "act": {
+          "xor_min": 8,
+          "calc_min": 8
+        },
+        "insts_max": 600,
+        "rot_schedule": {
+          "amounts": [
+            7,
+            9,
+            13,
+            18
+          ],
+          "min": 4,
+          "max_distinct": 8
+        }
+      },
+      "confidence": 0.65,
+      "description": "Salsa20 quarter-round (Bernstein spec): b ^= (a+d) <<< 7; c ^= (b+a) <<< 9; d ^= (c+b) <<< 13; a ^= (d+c) <<< 18.",
+      "spec_citation": "Bernstein, Salsa20 specification (eBACS / SUPERCOP) -- rotations: 7, 9, 13, 18",
+      "_note": "Combined sigma constants + rotation immediates is acceptable; consider future split into init/quarter detectors for cleaner separation"
+    },
+    {
+      "name": "crypto.hmac_ipad_opad",
+      "source": "RFC 2104 (HMAC: Keyed-Hashing for Message Authentication) + FIPS-198-1",
+      "category": "crypto",
+      "match": {
+        "act": {
+          "xor_min": 16,
+          "calls_min": 2
+        },
+        "set": [
+          "xor",
+          "mov"
+        ],
+        "insts_max": 60
+      },
+      "confidence": 0.85,
+      "description": "HMAC inner/outer hash construction: K XOR ipad (0x36) || msg, then K XOR opad (0x5C) || H(...). Two hash invocations with byte-XOR pad blocks.",
+      "spec_citation": "RFC-2104 §2 (HMAC)"
+    },
+    {
+      "name": "crypto.tea_round",
+      "source": "Wheeler & Needham 1994 'TEA, a Tiny Encryption Algorithm' (Fast Software Encryption 1994 proceedings)",
+      "category": "crypto",
+      "match": {
+        "set": [
+          "xor",
+          "shl",
+          "shr",
+          "add"
+        ],
+        "any_mnem_count": [
+          [
+            "xor",
+            4
+          ],
+          [
+            "add",
+            6
+          ],
+          [
+            "shl",
+            1
+          ],
+          [
+            "shr",
+            1
+          ]
+        ],
+        "imm_const_required_any": [
+          "9e3779b9",
+          "61c88647"
+        ],
+        "imm_const_forbidden_any": [
+          "61707865",
+          "3320646e",
+          "79622d32",
+          "6b206574"
+        ]
+      },
+      "confidence": 0.92,
+      "description": "TEA round per Wheeler-Needham FSE 1994 §3: F(v) = ((v<<4)+k_a) XOR (v+sum) XOR ((v>>5)+k_b). Spec-derived gates: requires TEA delta 0x9E3779B9 (also matches 2's-complement 0x61C88647 emitted by sub/lea forms), and forbids ChaCha20 sigma constants to avoid mnemonic-level false matches when junk rotations are present.  Per-round counts: xor>=4, add>=6, shl>=1, shr>=1.",
+      "spec_citation": "Wheeler & Needham, TEA: Tiny Encryption Algorithm (FSE 1994, Springer LNCS 1008, §3 equation + delta value)"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+{
+  "fixture": "garrantycrypt",
+  "scheme": "Salsa20 body, RSA-1024 wrapped key",
+  "synthetic": true
+}
